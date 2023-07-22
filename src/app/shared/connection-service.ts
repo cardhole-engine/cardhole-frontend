@@ -1,4 +1,5 @@
-import { Injectable } from "@angular/core";
+import {Injectable} from "@angular/core";
+import {Observable, Subscriber} from "rxjs";
 
 @Injectable({
   providedIn: 'root'
@@ -7,32 +8,47 @@ export class ConnectionService {
 
   webSocket: WebSocket | null = null;
 
-  connect(): void {
+  connect(): Observable<string> {
+    let connection: ConnectionService = this;
+    let placeholderSubscriber: Subscriber<string> | null = null;
+    let observable: Observable<string> = new Observable(
+      (subscriber: Subscriber<string>) => placeholderSubscriber = subscriber);
+
     this.webSocket = new WebSocket('ws://localhost:8080/websocket',
       'subprotocol.demo.websocket');
 
-    this.webSocket.onopen = function () {
+    this.webSocket.onopen = function (): void {
       console.log('Client connection opened');
       console.log('Subprotocol: ' + this.protocol);
       console.log('Extensions: ' + this.extensions);
 
-      this.send('{"type": "LOGIN_MESSAGE", "name": "testuser"}');
+      connection.sendMessage('{"type": "LoginMessage", "name": "testuser"}');
     };
 
     this.webSocket.onmessage = function (event) {
-      console.log('Client received: ' + event.data);
+      placeholderSubscriber?.next(event.data);
     };
     this.webSocket.onerror = function (event) {
       console.log('Client error: ', event);
+      placeholderSubscriber?.complete();
     };
     this.webSocket.onclose = function (event) {
       console.log('Client connection closed: ' + event.code);
+      placeholderSubscriber?.complete();
     };
+
+    return observable;
   }
 
   disconnect(): void {
     if (this.webSocket != null) {
       this.webSocket.close();
+    }
+  }
+
+  sendMessage(message: string): void {
+    if (this.webSocket != null) {
+      this.webSocket.send(message);
     }
   }
 }
