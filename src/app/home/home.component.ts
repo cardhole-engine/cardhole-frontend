@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
+import {Location} from '@angular/common';
+import {RunningGamePartialMessage} from "../shared/networking/running-game-partial-message";
 
 @Component({
   selector: 'app-home',
@@ -7,4 +9,10 @@ import { Component } from '@angular/core';
 })
 export class HomeComponent {
 
+  games: RunningGamePartialMessage[];
+
+  constructor(private location: Location) {
+    // @ts-ignore
+    this.games = this.location.getState().games;
+  }
 }

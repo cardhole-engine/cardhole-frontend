@@ -1,1 +1,25 @@
-<p>home works!</p>
+<div class="row">
+  <div class="col">
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Actual players</th>
+        <th>Maximum players</th>
+        <th>Join</th>
+      </tr>
+      <tr *ngFor="let game of games">
+        <td [textContent]="game.name"></td>
+        <td [textContent]="game.actualPlayers"></td>
+        <td [textContent]="game.maximumPlayers"></td>
+        <td>
+          <button class="btn btn-primary btn-sm">Join</button>
+        </td>
+      </tr>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col">
+    <button class="btn btn-primary btn-sm w-100">Create</button>
+  </div>
+</div>
