@@ -7,7 +7,7 @@
         <th>Maximum players</th>
         <th>Join</th>
       </tr>
-      <tr *ngFor="let game of games">
+      <tr *ngFor="let game of gameStateOnLobby.games">
         <td [textContent]="game.name"></td>
         <td [textContent]="game.actualPlayers"></td>
         <td [textContent]="game.maximumPlayers"></td>

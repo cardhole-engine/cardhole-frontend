@@ -1,1 +1,13 @@
-<p>game works!</p>
+<div class="row">
+  <div class="col">
+    {{gameState.game.players[0].name}}
+  </div>
+</div>
+
+len: {{gameState.game.players.length}}
+
+<div class="row" *ngIf="gameState.game.players.length > 1">
+  <div class="col">
+    {{gameState.game.players[1].name}}
+  </div>
+</div>
