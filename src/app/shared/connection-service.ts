@@ -1,5 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Observable, Subscriber} from "rxjs";
+import {Message} from "./networking/message";
+import {LoginMessage} from "./networking/login-message";
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +10,7 @@ export class ConnectionService {
 
   webSocket: WebSocket | null = null;
 
-  connect(): Observable<string> {
+  connect(name: string): Observable<string> {
     let connection: ConnectionService = this;
     let placeholderSubscriber: Subscriber<string> | null = null;
     let observable: Observable<string> = new Observable(
@@ -22,7 +24,7 @@ export class ConnectionService {
       console.log('Subprotocol: ' + this.protocol);
       console.log('Extensions: ' + this.extensions);
 
-      connection.sendMessage('{"type": "LoginMessage", "name": "testuser"}');
+      connection.sendMessage(new LoginMessage(name));
     };
 
     this.webSocket.onmessage = function (event) {
@@ -46,9 +48,9 @@ export class ConnectionService {
     }
   }
 
-  sendMessage(message: string): void {
+  sendMessage(message: Message): void {
     if (this.webSocket != null) {
-      this.webSocket.send(message);
+      this.webSocket.send(JSON.stringify(message));
     }
   }
 }

@@ -19,7 +19,7 @@ export class LoginComponent {
   }
 
   connect(): void {
-    this.connectionService.connect()
+    this.connectionService.connect(this.name)
       //TODO: add error handling
       .subscribe(message => {
         this.messageHandlerService.handleMessage(message)
