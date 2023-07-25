@@ -45,6 +45,8 @@ export class ConnectionService {
   disconnect(): void {
     if (this.webSocket != null) {
       this.webSocket.close();
+
+      this.webSocket = null;
     }
   }
 
@@ -52,5 +54,9 @@ export class ConnectionService {
     if (this.webSocket != null) {
       this.webSocket.send(JSON.stringify(message));
     }
+  }
+
+  isConnected(): boolean {
+    return this.webSocket !== null && this.webSocket.readyState !== WebSocket.CLOSED;
   }
 }

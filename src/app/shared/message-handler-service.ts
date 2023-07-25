@@ -37,7 +37,7 @@ export class MessageHandlerService {
         if (this.router.routerState.snapshot.url !== '/home') {
           this.router.navigateByUrl('/home');
         }
-        return;
+        break;
       case 'JoinGameOutgoingMessage':
         let joinGameOutgoingMessage: JoinGameOutgoingMessage = messageObj as JoinGameOutgoingMessage;
 
@@ -65,11 +65,10 @@ export class MessageHandlerService {
         player.name = playerJoinedOutgoingMessage.name;
 
         this.gameState.game.players.push(player);
-
-        return;
+        break;
       default:
         console.log("Unknown message!", messageObj);
-        return;
+        break;
     }
   }
 }

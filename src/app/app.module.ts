@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import {FormsModule} from "@angular/forms";
 import { HomeComponent } from './home/home.component';
 import { GameComponent } from './game/game.component';
+import {IsConnected} from "./shared/canactivate/is-connected";
 
 @NgModule({
   declarations: [
@@ -20,7 +21,9 @@ import { GameComponent } from './game/game.component';
     BrowserModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [
+    IsConnected
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
