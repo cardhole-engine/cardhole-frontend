@@ -49,6 +49,7 @@ export class MessageHandlerService {
             let player: Player = new Player();
 
             player.name = msgPlayer.name;
+            player.myPlayer = msgPlayer.myPlayer;
 
             return player;
           })
@@ -63,6 +64,7 @@ export class MessageHandlerService {
         let player: Player = new Player();
 
         player.name = playerJoinedOutgoingMessage.name;
+        player.myPlayer = false;
 
         this.gameState.game.players.push(player);
         break;

@@ -20,7 +20,7 @@
 
           <!-- TODO: the opponent should come here all the time! -->
           <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center">???</div>
-          <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.players[1].name"
+          <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.getOpponent().name"
                 class="fw-bold text-center"></div>
         </div>
         <div class="col-11 g-0">
@@ -104,10 +104,10 @@ cards
       </div>
 
       <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
-        <div class="col g-0">
+        <div class="col-1 g-0">
           <img src="https://placehold.co/80x80" alt="Your avatar" class="img-fluid">
 
-          <div class="fw-bold text-center">{{gameState.game.players[0].name}}</div>
+          <div class="fw-bold text-center">{{gameState.game.getMyPlayer().name}}</div>
         </div>
         <div class="col-11 g-0">
           mycards
