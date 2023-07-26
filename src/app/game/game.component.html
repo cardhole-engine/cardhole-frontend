@@ -1,20 +1,156 @@
-<div class="row" style="height: 47vh; background: beige; border: 3px solid dimgray;">
-  <div class="col">
-    <!-- TODO: the opponent should come here all the time! -->
-    <span *ngIf="gameState.game.players.length == 1" class="fw-bold">???</span>
-    <span *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.players[1].name"
-          class="fw-bold"></span>
-  </div>
-</div>
+<div class="container-fluid">
+  <div class="row">
+    <!-- TODO: Make the left cols here bigger on smaller screens, col-2 works on large ones. -->
+    <div class="col-2 gx-2">
+      <div style="height: 47vh;">
+        <div style="height: 100%;">
+          <div style="background: darkseagreen; height: 100%;">
+            Card title
+          </div>
+        </div>
+      </div>
+      <div style="height: 53vh;">
+        stack
+      </div>
+    </div>
+    <div class="col-8">
+      <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
+        <div class="col-1 g-0">
+          <img src="https://placehold.co/80x80" alt="Opponent avatar" class="img-fluid">
 
-<div class="row" style="height: 6vh;">
-  <div class="col">
-    State goes here...
-  </div>
-</div>
+          <!-- TODO: the opponent should come here all the time! -->
+          <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center">???</div>
+          <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.players[1].name"
+                class="fw-bold text-center"></div>
+        </div>
+        <div class="col-11 g-0">
+cards
+        </div>
+      </div>
 
-<div class="row" style="height: 47vh; background: beige; border: 3px solid dimgray;">
-  <div class="col">
-    <span class="fw-bold">{{gameState.game.players[0].name}}</span>
+      <div class="row" style="height: 4vh; max-height: 28px; background: lightblue;">
+        <div class="col g-0">
+          <div class="text-center">Untap</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Upkeep</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Draw</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Main</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center" style="text-wrap: nowrap;">Bgn cmbt</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Attack</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Block</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Damage</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center" style="text-wrap: nowrap;">End cmbt</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Main</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">End</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+        <div class="col g-0">
+          <div class="text-center">Cleanup</div>
+
+          <button class="stop-at-opponent"></button>
+          <button class="stop-at-mine"></button>
+        </div>
+      </div>
+
+      <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
+        <div class="col g-0">
+          <img src="https://placehold.co/80x80" alt="Your avatar" class="img-fluid">
+
+          <div class="fw-bold text-center">{{gameState.game.players[0].name}}</div>
+        </div>
+        <div class="col-11 g-0">
+          mycards
+        </div>
+      </div>
+
+      <div class="row" style="height: 16vh; background: lightgray">
+        <div class="col">
+          my cards
+        </div>
+      </div>
+    </div>
+
+    <div class="col-2">
+      <div style="height: 90vh; overflow: scroll">
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+        <div>
+          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
+        </div>
+      </div>
+      <div style="min-height: 10vh; overflow: hidden;">
+        <input class="form-control" style="margin-top: 10px;">
+      </div>
+    </div>
   </div>
 </div>

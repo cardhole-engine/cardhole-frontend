@@ -1,28 +1,30 @@
-<div class="row">
-  <div class="col">
-    <table class="table">
-      <tr>
-        <th>Name</th>
-        <th>Actual players</th>
-        <th>Maximum players</th>
-        <th>Join</th>
-      </tr>
-      <tr *ngFor="let game of gameStateOnLobby.games">
-        <td [textContent]="game.name"></td>
-        <td [textContent]="game.actualPlayers"></td>
-        <td [textContent]="game.maximumPlayers"></td>
-        <td>
-          <button class="btn btn-primary btn-sm" (click)="joinGame(game.id)">Join</button>
-        </td>
-      </tr>
-    </table>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <table class="table">
+        <tr>
+          <th>Name</th>
+          <th>Actual players</th>
+          <th>Maximum players</th>
+          <th>Join</th>
+        </tr>
+        <tr *ngFor="let game of gameStateOnLobby.games">
+          <td [textContent]="game.name"></td>
+          <td [textContent]="game.actualPlayers"></td>
+          <td [textContent]="game.maximumPlayers"></td>
+          <td>
+            <button class="btn btn-primary btn-sm" (click)="joinGame(game.id)">Join</button>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col">
-    <label for="username" class="form-label">Name</label>
-    <input id="username" class="form-control mb-3" [(ngModel)]="createGameName">
-    <button class="btn btn-primary btn-sm w-100" (click)="createGame()">Create game!</button>
+  <div class="row">
+    <div class="col">
+      <label for="username" class="form-label">Name</label>
+      <input id="username" class="form-control mb-3" [(ngModel)]="createGameName">
+      <button class="btn btn-primary btn-sm w-100" (click)="createGame()">Create game!</button>
+    </div>
   </div>
 </div>
