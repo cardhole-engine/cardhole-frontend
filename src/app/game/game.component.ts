@@ -12,4 +12,12 @@ export class GameComponent {
     public gameState: GameState
   ) {
   }
+
+  sayYes(): void {
+    console.log("yes")
+  }
+
+  sayNo(): void {
+    console.log("no")
+  }
 }

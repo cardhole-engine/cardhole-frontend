@@ -2,14 +2,25 @@
   <div class="row">
     <!-- TODO: Make the left cols here bigger on smaller screens, col-2 works on large ones. -->
     <div class="col-2 gx-2">
-      <div style="height: 47vh;">
+      <div style="height: 40vh;">
         <div style="height: 100%;">
           <div style="background: darkseagreen; height: 100%;">
             Card title
           </div>
         </div>
       </div>
-      <div style="height: 53vh;">
+      <div style="height: 15vh; background: beige">
+        <div *ngIf="gameState.gameMessage === 'DECIDE_START'">
+          Do you want to go first?<br>
+          <button (click)="sayYes()">Yes</button>
+          /
+          <button (click)="sayNo()">No</button>
+        </div>
+        <div *ngIf="gameState.gameMessage === 'WAIT_FOR_START'">
+          Waiting for the winner player to decide who go first.
+        </div>
+      </div>
+      <div style="height: 45vh;">
         stack
       </div>
     </div>
@@ -21,10 +32,10 @@
           <!-- TODO: the opponent should come here all the time! -->
           <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center">???</div>
           <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.getOpponent().name"
-                class="fw-bold text-center"></div>
+               class="fw-bold text-center"></div>
         </div>
         <div class="col-11 g-0">
-cards
+          cards
         </div>
       </div>
 
@@ -123,30 +134,7 @@ cards
 
     <div class="col-2">
       <div style="height: 90vh; overflow: scroll">
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
-        <div>
-          asdasdasdsa asd asd sa dasd das d asd asdasds rewrwer we r we r w er wer erewrewrwerwer
-        </div>
+        <div *ngFor="let log of gameState.logs" [textContent]="log"></div>
       </div>
       <div style="min-height: 10vh; overflow: hidden;">
         <input class="form-control" style="margin-top: 10px;">
