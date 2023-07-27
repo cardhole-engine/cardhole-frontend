@@ -1,3 +1,5 @@
+import {Card} from "../../card/card";
+
 export class Player {
 
   id: string;
@@ -5,4 +7,6 @@ export class Player {
   myPlayer: boolean;
   deckSize: number;
   life: number;
+  handSize: number = 0;
+  hand: Card[] = [];
 }

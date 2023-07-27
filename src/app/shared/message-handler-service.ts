@@ -9,9 +9,13 @@ import {LobbyState} from "../home/lobby-state";
 import {GameState} from "../game/game-state";
 import {PlayerJoinedOutgoingMessage} from "./networking/player-joined-outgoing-message";
 import {SendLogOutgoingMessage} from "./networking/send-log-outgoing-message";
-import {ShowDualQuestionGameMessage} from "./networking/show-dual-question-game-message";
-import {DomSanitizer} from "@angular/platform-browser";
-import {ShowSimpleGameMessage} from "./networking/show-simple-game-message";
+import {
+  ShowDualQuestionGameMessageOutgoingMessage
+} from "./networking/show-dual-question-game-message-outgoing-message";
+import {ShowSimpleGameMessageOutgoingMessage} from "./networking/show-simple-game-message-outgoing-message";
+import {HandSizeChangeOutgoingMessage} from "./networking/hand-size-change-outgoing-message";
+import {AddCardToHandOutgoingMessage} from "./networking/add-card-to-hand-outgoing-message";
+import {Card} from "./card/card";
 
 @Injectable({
   providedIn: 'root'
@@ -21,8 +25,7 @@ export class MessageHandlerService {
   constructor(
     private router: Router,
     private gameState: GameState,
-    private lobbyState: LobbyState,
-    private sanitizer: DomSanitizer
+    private lobbyState: LobbyState
   ) {
   }
 
@@ -85,8 +88,9 @@ export class MessageHandlerService {
         this.gameState.logs.push(sendLogOutgoingMessage.message);
 
         break;
-      case 'ShowDualQuestionGameMessage':
-        let showDualQuestionGameMessage: ShowDualQuestionGameMessage = messageObj as ShowDualQuestionGameMessage;
+      case 'ShowDualQuestionGameMessageOutgoingMessage':
+        let showDualQuestionGameMessage: ShowDualQuestionGameMessageOutgoingMessage =
+          messageObj as ShowDualQuestionGameMessageOutgoingMessage;
 
         this.gameState.gameMessage = showDualQuestionGameMessage.question
         this.gameState.gameMessageType = 'DUAL_QUESTION';
@@ -95,11 +99,42 @@ export class MessageHandlerService {
         this.gameState.gameMessageQuestionButtonOneId = showDualQuestionGameMessage.responseOneId;
         this.gameState.gameMessageQuestionButtonTwoId = showDualQuestionGameMessage.responseTwoId;
         break;
-      case 'ShowSimpleGameMessage':
-        let showSimpleGameMessage: ShowSimpleGameMessage = messageObj as ShowSimpleGameMessage;
+      case 'ShowSimpleGameMessageOutgoingMessage':
+        let showSimpleGameMessage: ShowSimpleGameMessageOutgoingMessage =
+          messageObj as ShowSimpleGameMessageOutgoingMessage;
 
         this.gameState.gameMessage = showSimpleGameMessage.message;
         this.gameState.gameMessageType = 'MESSAGE';
+        break;
+      case 'AddCardToHandOutgoingMessage':
+        let addCardToHandOutgoingMessage: AddCardToHandOutgoingMessage = messageObj as AddCardToHandOutgoingMessage;
+
+        let card: Card = new Card();
+
+        card.id = addCardToHandOutgoingMessage.id;
+        card.name = addCardToHandOutgoingMessage.name;
+
+        this.gameState.game.getMyPlayer().hand.push(card);
+        break;
+      case 'HandSizeChangeOutgoingMessage':
+        let handSizeChangeOutgoingMessage: HandSizeChangeOutgoingMessage = messageObj as HandSizeChangeOutgoingMessage;
+
+        let updatedPlayer: Player | undefined = this.gameState.game.players.find(player =>
+          player.id == handSizeChangeOutgoingMessage.playerId);
+
+        if (updatedPlayer != undefined) {
+          updatedPlayer.handSize = handSizeChangeOutgoingMessage.handSize;
+        } else {
+          console.log("Unknown player with id: " + handSizeChangeOutgoingMessage.playerId + "!");
+        }
+        break;
+      case 'ResetMessageOutgoingMessage':
+        this.gameState.gameMessage = '';
+        this.gameState.gameMessageType = '';
+        this.gameState.gameMessageQuestionButtonOneId = '';
+        this.gameState.gameMessageQuestionButtonOneText = '';
+        this.gameState.gameMessageQuestionButtonTwoId = '';
+        this.gameState.gameMessageQuestionButtonTwoText = '';
         break;
       default:
         console.log("Unknown message!", messageObj);

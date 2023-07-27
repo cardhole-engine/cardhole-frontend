@@ -1,6 +1,6 @@
 import {Message} from "./message";
 
-export class ShowDualQuestionGameMessage extends Message {
+export class ShowDualQuestionGameMessageOutgoingMessage extends Message {
 
   question: string;
   buttonOneText: string;

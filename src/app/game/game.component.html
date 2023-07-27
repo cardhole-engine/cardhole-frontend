@@ -139,7 +139,10 @@
 
       <div class="row" style="height: 16vh; background: lightgray">
         <div class="col">
-          my cards
+          <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;">
+            <div [textContent]="card.name" class="card-head"></div>
+            <div class="card-body">body...</div>
+          </div>
         </div>
       </div>
     </div>
