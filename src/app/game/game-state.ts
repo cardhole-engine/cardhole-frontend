@@ -9,5 +9,11 @@ export class GameState {
 
   public game: Game;
   public logs: string[] = [];
+
   public gameMessage: string;
+  public gameMessageType: string;
+  public gameMessageQuestionButtonOneId: string;
+  public gameMessageQuestionButtonTwoId: string;
+  public gameMessageQuestionButtonOneText: string;
+  public gameMessageQuestionButtonTwoText: string;
 }

@@ -1,5 +1,7 @@
 import {Component} from '@angular/core';
 import {GameState} from "./game-state";
+import {ConnectionService} from "../shared/connection-service";
+import {QuestionResponseIncomingMessage} from "../shared/networking/question-response-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -9,15 +11,12 @@ import {GameState} from "./game-state";
 export class GameComponent {
 
   constructor(
-    public gameState: GameState
+    public gameState: GameState,
+    private connectionService: ConnectionService
   ) {
   }
 
-  sayYes(): void {
-    console.log("yes")
-  }
-
-  sayNo(): void {
-    console.log("no")
+  sendQuestionResponse(value: string): void {
+    this.connectionService.sendMessage(new QuestionResponseIncomingMessage(value));
   }
 }

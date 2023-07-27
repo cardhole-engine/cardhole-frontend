@@ -10,15 +10,16 @@
         </div>
       </div>
       <div style="height: 15vh; background: beige">
-        <div *ngIf="gameState.gameMessage === 'DECIDE_START'">
-          Do you want to go first?<br>
-          <button (click)="sayYes()">Yes</button>
+        <div *ngIf="gameState.gameMessageType === 'DUAL_QUESTION'">
+          {{gameState.gameMessage}}<br>
+          <button
+            (click)="sendQuestionResponse(gameState.gameMessageQuestionButtonOneId)">
+            {{gameState.gameMessageQuestionButtonOneText}}</button>
           /
-          <button (click)="sayNo()">No</button>
+          <button (click)="sendQuestionResponse(gameState.gameMessageQuestionButtonTwoId)">
+            {{gameState.gameMessageQuestionButtonTwoText}}</button>
         </div>
-        <div *ngIf="gameState.gameMessage === 'WAIT_FOR_START'">
-          Waiting for the winner player to decide who go first.
-        </div>
+        <div *ngIf="gameState.gameMessageType === 'MESSAGE'" [textContent]="gameState.gameMessage"></div>
       </div>
       <div style="height: 45vh;">
         stack

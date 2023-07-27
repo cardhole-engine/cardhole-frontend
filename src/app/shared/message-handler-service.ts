@@ -9,8 +9,9 @@ import {LobbyState} from "../home/lobby-state";
 import {GameState} from "../game/game-state";
 import {PlayerJoinedOutgoingMessage} from "./networking/player-joined-outgoing-message";
 import {SendLogOutgoingMessage} from "./networking/send-log-outgoing-message";
-import {DecideStartOrYieldOutgoingMessage} from "./networking/decide-start-or-yield-outgoing-message";
+import {ShowDualQuestionGameMessage} from "./networking/show-dual-question-game-message";
 import {DomSanitizer} from "@angular/platform-browser";
+import {ShowSimpleGameMessage} from "./networking/show-simple-game-message";
 
 @Injectable({
   providedIn: 'root'
@@ -78,14 +79,21 @@ export class MessageHandlerService {
         this.gameState.logs.push(sendLogOutgoingMessage.message);
 
         break;
-      case 'DecideStartOrYieldOutgoingMessage':
-        let decideStartOrYieldOutgoingMessage: DecideStartOrYieldOutgoingMessage = messageObj as DecideStartOrYieldOutgoingMessage;
+      case 'ShowDualQuestionGameMessage':
+        let showDualQuestionGameMessage: ShowDualQuestionGameMessage = messageObj as ShowDualQuestionGameMessage;
 
-        if (decideStartOrYieldOutgoingMessage.shouldIStart) {
-          this.gameState.gameMessage = 'DECIDE_START';//this.sanitizer.bypassSecurityTrustHtml('Do you want to go first?<br><button (click)="sayYes()">Yes</button> / <button (click)="sayNo()">No</button>');
-        } else {
-          this.gameState.gameMessage = 'WAIT_FOR_START';//'Waiting for the winner player to decide who go first.'
-        }
+        this.gameState.gameMessage = showDualQuestionGameMessage.question
+        this.gameState.gameMessageType = 'DUAL_QUESTION';
+        this.gameState.gameMessageQuestionButtonOneText = showDualQuestionGameMessage.buttonOneText;
+        this.gameState.gameMessageQuestionButtonTwoText = showDualQuestionGameMessage.buttonTwoText;
+        this.gameState.gameMessageQuestionButtonOneId = showDualQuestionGameMessage.responseOneId;
+        this.gameState.gameMessageQuestionButtonTwoId = showDualQuestionGameMessage.responseTwoId;
+        break;
+      case 'ShowSimpleGameMessage':
+        let showSimpleGameMessage: ShowSimpleGameMessage = messageObj as ShowSimpleGameMessage;
+
+        this.gameState.gameMessage = showSimpleGameMessage.message;
+        this.gameState.gameMessageType = 'MESSAGE';
         break;
       default:
         console.log("Unknown message!", messageObj);
