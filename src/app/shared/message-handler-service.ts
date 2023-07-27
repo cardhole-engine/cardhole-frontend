@@ -16,6 +16,7 @@ import {ShowSimpleGameMessageOutgoingMessage} from "./networking/show-simple-gam
 import {HandSizeChangeOutgoingMessage} from "./networking/hand-size-change-outgoing-message";
 import {AddCardToHandOutgoingMessage} from "./networking/add-card-to-hand-outgoing-message";
 import {Card} from "./card/card";
+import {RemoveCardFromHandOutgoingMessage} from "./networking/remove-card-from-hand-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -115,6 +116,12 @@ export class MessageHandlerService {
         card.name = addCardToHandOutgoingMessage.name;
 
         this.gameState.game.getMyPlayer().hand.push(card);
+        break;
+      case 'RemoveCardFromHandOutgoingMessage':
+        let removeCardFromHandOutgoingMessage: RemoveCardFromHandOutgoingMessage = messageObj as RemoveCardFromHandOutgoingMessage;
+
+        this.gameState.game.getMyPlayer().hand = this.gameState.game.getMyPlayer().hand
+          .filter(card => card.id != removeCardFromHandOutgoingMessage.id);
         break;
       case 'HandSizeChangeOutgoingMessage':
         let handSizeChangeOutgoingMessage: HandSizeChangeOutgoingMessage = messageObj as HandSizeChangeOutgoingMessage;

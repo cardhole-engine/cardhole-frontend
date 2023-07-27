@@ -30,14 +30,15 @@
         <div class="col-1 g-0">
           <img src="https://placehold.co/80x80" alt="Opponent avatar" class="img-fluid">
 
-          <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center">???</div>
+          <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center mb-5">???</div>
           <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.getOpponent().name"
                class="fw-bold text-center"></div>
           <div *ngIf="gameState.game.players.length > 1">
             <div class="player-life-container">
               <div [textContent]="gameState.game.getOpponent().life" class="fw-bold text-center player-life"></div>
             </div>
-            <div class="fw-bold text-center">{{gameState.game.getOpponent().deckSize}} cards</div>
+            <div class="fw-bold text-center pt-5">{{gameState.game.getOpponent().deckSize}} cards in deck</div>
+            <div class="fw-bold text-center">{{gameState.game.getOpponent().handSize}} cards in hand</div>
           </div>
         </div>
         <div class="col-11 g-0">
@@ -129,7 +130,8 @@
             <div class="player-life-container">
               <div class="fw-bold text-center player-life" [textContent]="gameState.game.getMyPlayer().life"></div>
             </div>
-            <div class="fw-bold text-center">{{gameState.game.getMyPlayer().deckSize}} cards</div>
+            <div class="fw-bold text-center pt-5">{{gameState.game.getMyPlayer().deckSize}} cards in deck</div>
+            <div class="fw-bold text-center">{{gameState.game.getMyPlayer().handSize}} cards in hand</div>
           </div>
         </div>
         <div class="col-11 g-0">
