@@ -15,3 +15,14 @@
   transform: translateX(-150%);
   left: 50%;
 }
+
+.player-life-container {
+  position: relative;
+}
+
+.player-life {
+  position: absolute;
+  top: -60px;
+  left: 4px;
+  font-size: 26px;
+}

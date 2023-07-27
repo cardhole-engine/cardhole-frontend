@@ -53,8 +53,11 @@ export class MessageHandlerService {
           .map(msgPlayer => {
             let player: Player = new Player();
 
+            player.id = msgPlayer.id;
             player.name = msgPlayer.name;
             player.myPlayer = msgPlayer.myPlayer;
+            player.deckSize = msgPlayer.deckSize;
+            player.life = msgPlayer.life;
 
             return player;
           })
@@ -68,8 +71,11 @@ export class MessageHandlerService {
 
         let player: Player = new Player();
 
+        player.id = playerJoinedOutgoingMessage.id;
         player.name = playerJoinedOutgoingMessage.name;
         player.myPlayer = false;
+        player.deckSize = playerJoinedOutgoingMessage.deckSize;
+        player.life = playerJoinedOutgoingMessage.life;
 
         this.gameState.game.players.push(player);
         break;

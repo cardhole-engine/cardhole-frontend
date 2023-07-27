@@ -30,10 +30,15 @@
         <div class="col-1 g-0">
           <img src="https://placehold.co/80x80" alt="Opponent avatar" class="img-fluid">
 
-          <!-- TODO: the opponent should come here all the time! -->
           <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center">???</div>
           <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.getOpponent().name"
                class="fw-bold text-center"></div>
+          <div *ngIf="gameState.game.players.length > 1">
+            <div class="player-life-container">
+              <div [textContent]="gameState.game.getOpponent().life" class="fw-bold text-center player-life"></div>
+            </div>
+            <div class="fw-bold text-center">{{gameState.game.getOpponent().deckSize}} cards</div>
+          </div>
         </div>
         <div class="col-11 g-0">
           cards
@@ -119,7 +124,13 @@
         <div class="col-1 g-0">
           <img src="https://placehold.co/80x80" alt="Your avatar" class="img-fluid">
 
-          <div class="fw-bold text-center">{{gameState.game.getMyPlayer().name}}</div>
+          <div class="fw-bold text-center" [textContent]="gameState.game.getMyPlayer().name"></div>
+          <div>
+            <div class="player-life-container">
+              <div class="fw-bold text-center player-life" [textContent]="gameState.game.getMyPlayer().life"></div>
+            </div>
+            <div class="fw-bold text-center">{{gameState.game.getMyPlayer().deckSize}} cards</div>
+          </div>
         </div>
         <div class="col-11 g-0">
           mycards
