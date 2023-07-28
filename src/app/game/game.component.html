@@ -10,6 +10,12 @@
         </div>
       </div>
       <div style="height: 15vh; background: beige">
+        <div *ngIf="gameState.gameMessageType === 'SINGLE_QUESTION'">
+          {{gameState.gameMessage}}<br>
+          <button
+            (click)="sendQuestionResponse(gameState.gameMessageQuestionButtonOneId)">
+            {{gameState.gameMessageQuestionButtonOneText}}</button>
+        </div>
         <div *ngIf="gameState.gameMessageType === 'DUAL_QUESTION'">
           {{gameState.gameMessage}}<br>
           <button
@@ -48,19 +54,19 @@
 
       <div class="row" style="height: 4vh; max-height: 28px; background: lightblue;">
         <div class="col g-0">
-          <div class="text-center">Untap</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UNTAP'">Untap</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Upkeep</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UPKEEP'">Upkeep</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Draw</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DRAW'">Draw</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>

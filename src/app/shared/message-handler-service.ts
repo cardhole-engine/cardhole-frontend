@@ -17,6 +17,10 @@ import {HandSizeChangeOutgoingMessage} from "./networking/hand-size-change-outgo
 import {AddCardToHandOutgoingMessage} from "./networking/add-card-to-hand-outgoing-message";
 import {Card} from "./card/card";
 import {RemoveCardFromHandOutgoingMessage} from "./networking/remove-card-from-hand-outgoing-message";
+import {StepChangeOutgoingMessage} from "./networking/step-change-outgoing-message";
+import {
+  ShowSingleQuestionGameMessageOutgoingMessage
+} from "./networking/show-single-question-game-message-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -89,6 +93,15 @@ export class MessageHandlerService {
         this.gameState.logs.push(sendLogOutgoingMessage.message);
 
         break;
+      case 'ShowSingleQuestionGameMessageOutgoingMessage':
+        let showSingleQuestionGameMessageOutgoingMessage: ShowSingleQuestionGameMessageOutgoingMessage =
+          messageObj as ShowSingleQuestionGameMessageOutgoingMessage;
+
+        this.gameState.gameMessage = showSingleQuestionGameMessageOutgoingMessage.question
+        this.gameState.gameMessageType = 'SINGLE_QUESTION';
+        this.gameState.gameMessageQuestionButtonOneId = showSingleQuestionGameMessageOutgoingMessage.responseOneId;
+        this.gameState.gameMessageQuestionButtonOneText = showSingleQuestionGameMessageOutgoingMessage.buttonOneText;
+        break;
       case 'ShowDualQuestionGameMessageOutgoingMessage':
         let showDualQuestionGameMessage: ShowDualQuestionGameMessageOutgoingMessage =
           messageObj as ShowDualQuestionGameMessageOutgoingMessage;
@@ -142,6 +155,14 @@ export class MessageHandlerService {
         this.gameState.gameMessageQuestionButtonOneText = '';
         this.gameState.gameMessageQuestionButtonTwoId = '';
         this.gameState.gameMessageQuestionButtonTwoText = '';
+        break;
+      case 'StepChangeOutgoingMessage':
+        let stepChangeOutgoingMessage: StepChangeOutgoingMessage = messageObj as StepChangeOutgoingMessage;
+
+        this.gameState.activeStep = stepChangeOutgoingMessage.activeStep;
+
+        break;
+      case 'RefreshCanBeCastAndActivatedListOutgoingMessage':
         break;
       default:
         console.log("Unknown message!", messageObj);
