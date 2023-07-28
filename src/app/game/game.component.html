@@ -1,15 +1,15 @@
 <div class="container-fluid">
   <div class="row">
     <!-- TODO: Make the left cols here bigger on smaller screens, col-2 works on large ones. -->
-    <div class="col-2 gx-2">
-      <div style="height: 40vh;">
+    <div class="col-2 g-0">
+      <div style="height: 40vh; border-left: 3px solid dimgray; border-top: 3px solid dimgray; border-bottom: 3px solid dimgray;">
         <div style="height: 100%;">
           <div style="background: darkseagreen; height: 100%;">
             Card title
           </div>
         </div>
       </div>
-      <div style="height: 15vh; background: beige">
+      <div style="height: 15vh; background: beige; border-left: 3px solid dimgray; border-bottom: 3px solid dimgray;">
         <div *ngIf="gameState.gameMessageType === 'SINGLE_QUESTION'">
           {{gameState.gameMessage}}<br>
           <button
@@ -27,14 +27,14 @@
         </div>
         <div *ngIf="gameState.gameMessageType === 'MESSAGE'" [textContent]="gameState.gameMessage"></div>
       </div>
-      <div style="height: 45vh;">
+      <div style="height: 45vh; border-left: 3px solid dimgray; border-bottom: 3px solid dimgray;">
         stack
       </div>
     </div>
     <div class="col-8">
       <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
         <div class="col-1 g-0" style="border-right: 3px solid dimgray;">
-          <img src="https://placehold.co/80x80" alt="Opponent avatar" class="img-fluid">
+          <img src="https://placehold.co/160x160" alt="Opponent avatar" class="img-fluid">
 
           <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center mb-5">???</div>
           <div *ngIf="gameState.game.players.length > 1" [textContent]="gameState.game.getOpponent().name"
@@ -129,7 +129,7 @@
 
       <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
         <div class="col-1 g-0" style="border-right: 3px solid dimgray;">
-          <img src="https://placehold.co/80x80" alt="Your avatar" class="img-fluid">
+          <img src="https://placehold.co/160x160" alt="Your avatar" class="img-fluid">
 
           <div class="fw-bold text-center" [textContent]="gameState.game.getMyPlayer().name"></div>
           <div>
@@ -145,7 +145,7 @@
         </div>
       </div>
 
-      <div class="row" style="height: 16vh; background: lightgray">
+      <div class="row" style="height: 16vh; background: lightgray;border-right: 3px solid dimgray;border-left: 3px solid dimgray;">
         <div class="col">
           <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;">
             <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
@@ -155,11 +155,15 @@
       </div>
     </div>
 
-    <div class="col-2">
-      <div style="height: 90vh; overflow: scroll">
+    <div class="col-2 g-0">
+      <div style="height: 90vh; overflow: scroll;    padding-left: 12px;
+    border-right: 3px solid dimgray;
+    border-top: 3px solid dimgray;">
         <div *ngFor="let log of gameState.logs" [textContent]="log"></div>
       </div>
-      <div style="min-height: 10vh; overflow: hidden;">
+      <div style="min-height: 10vh; overflow: hidden;     border-top: 3px solid dimgray;
+    border-right: 3px solid dimgray;
+    border-bottom: 3px solid dimgray;">
         <input class="form-control" style="margin-top: 10px;">
       </div>
     </div>
