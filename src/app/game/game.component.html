@@ -2,7 +2,8 @@
   <div class="row">
     <!-- TODO: Make the left cols here bigger on smaller screens, col-2 works on large ones. -->
     <div class="col-2 g-0">
-      <div style="height: 40vh; border-left: 3px solid dimgray; border-top: 3px solid dimgray; border-bottom: 3px solid dimgray;">
+      <div
+        style="height: 40vh; border-left: 3px solid dimgray; border-top: 3px solid dimgray; border-bottom: 3px solid dimgray;">
         <div style="height: 100%;">
           <div style="background: darkseagreen; height: 100%;">
             Card title
@@ -52,7 +53,7 @@
         </div>
       </div>
 
-      <div class="row" style="height: 4vh; max-height: 28px; background: lightblue; border-right: 3px solid dimgray; border-left: 3px solid dimgray;">
+      <div class="row step-container">
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UNTAP'">Untap</div>
 
@@ -78,7 +79,9 @@
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'BEGIN_COMBAT'">Bgn cmbt</div>
+          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'BEGIN_COMBAT'">
+            Bgn cmbt
+          </div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
@@ -102,7 +105,9 @@
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'END_COMBAT'">End cmbt</div>
+          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'END_COMBAT'">End
+            cmbt
+          </div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
@@ -145,7 +150,7 @@
         </div>
       </div>
 
-      <div class="row" style="height: 16vh; background: lightgray;border-right: 3px solid dimgray;border-left: 3px solid dimgray;">
+      <div class="row player-hand">
         <div class="col">
           <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;">
             <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
@@ -156,15 +161,12 @@
     </div>
 
     <div class="col-2 g-0">
-      <div style="height: 90vh; overflow: scroll;    padding-left: 12px;
-    border-right: 3px solid dimgray;
-    border-top: 3px solid dimgray;">
+      <div class="log-container">
         <div *ngFor="let log of gameState.logs" [textContent]="log"></div>
       </div>
-      <div style="min-height: 10vh; overflow: hidden;     border-top: 3px solid dimgray;
-    border-right: 3px solid dimgray;
-    border-bottom: 3px solid dimgray;">
-        <input class="form-control" style="margin-top: 10px;">
+      <div class="chat-container">
+        <textarea class="form-control"></textarea>
+        <button class="btn btn-sm btn-secondary w-100">Send</button>
       </div>
     </div>
   </div>

@@ -26,3 +26,37 @@
   left: 4px;
   font-size: 26px;
 }
+
+.log-container {
+  height: 80vh;
+  overflow-y: scroll;
+  padding-left: 12px;
+  border-right: 3px solid dimgray;
+  border-top: 3px solid dimgray;
+}
+
+.chat-container {
+  min-height: 20vh;
+  border-top: 3px solid dimgray;
+  border-right: 3px solid dimgray;
+  border-bottom: 3px solid dimgray;
+}
+
+.chat-container button {
+  border-radius: 0;
+}
+
+.player-hand {
+  height: 16vh;
+  background: lightgray;
+  border-right: 3px solid dimgray;
+  border-left: 3px solid dimgray;
+}
+
+.step-container {
+  height: 4vh;
+  max-height: 28px;
+  background: lightblue;
+  border-right: 3px solid dimgray;
+  border-left: 3px solid dimgray;
+}
