@@ -24,6 +24,7 @@ import {
 import {
   RefreshCanBeCastAndActivatedListOutgoingMessage
 } from "./networking/refresh-can-be-cast-and-activated-list-outgoing-message";
+import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-battlefield-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -145,11 +146,14 @@ export class MessageHandlerService {
         let updatedPlayer: Player | undefined = this.gameState.game.players.find(player =>
           player.id == handSizeChangeOutgoingMessage.playerId);
 
-        if (updatedPlayer != undefined) {
-          updatedPlayer.handSize = handSizeChangeOutgoingMessage.handSize;
-        } else {
-          console.log("Unknown player with id: " + handSizeChangeOutgoingMessage.playerId + "!");
+        if (updatedPlayer == undefined) {
+          throw new Error();
         }
+
+        updatedPlayer.handSize = handSizeChangeOutgoingMessage.handSize;
+        break;
+      case 'DeckSizeChangeOutgoingMessage':
+        //TODO:
         break;
       case 'ResetMessageOutgoingMessage':
         this.gameState.gameMessage = '';
@@ -173,6 +177,24 @@ export class MessageHandlerService {
           .forEach(card => {
             card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
           })
+        break;
+      case 'CardEnterToBattlefieldOutgoingMessage':
+        let cardEnterToBattlefieldOutgoingMessage: CardEnterToBattlefieldOutgoingMessage =
+          messageObj as CardEnterToBattlefieldOutgoingMessage;
+
+        let owner: Player | undefined = this.gameState.game.players.find(player =>
+          player.id == cardEnterToBattlefieldOutgoingMessage.ownerId);
+
+        if (owner == undefined) {
+          throw new Error("Unknown owner!");
+        }
+
+        let enteringCard: Card = new Card();
+
+        enteringCard.id = cardEnterToBattlefieldOutgoingMessage.id;
+        enteringCard.name = cardEnterToBattlefieldOutgoingMessage.name;
+
+        owner.battlefield.push(enteringCard);
         break;
       default:
         console.log("Unknown message!", messageObj);

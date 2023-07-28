@@ -49,7 +49,13 @@
           </div>
         </div>
         <div class="col-11 g-0">
-          cards
+          <div *ngIf="gameState.game.players.length > 1">
+            <div *ngFor="let card of gameState.game.getOpponent().battlefield" class="card"
+                 style="display: inline-block;">
+              <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
+              <div class="card-body">body...</div>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -146,13 +152,18 @@
           </div>
         </div>
         <div class="col-11 g-0">
-          mycards
+          <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card"
+               style="display: inline-block;">
+            <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
+            <div class="card-body">body...</div>
+          </div>
         </div>
       </div>
 
       <div class="row player-hand">
         <div class="col">
-          <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;">
+          <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;"
+               (click)="castCard(card)">
             <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
             <div class="card-body">body...</div>
           </div>

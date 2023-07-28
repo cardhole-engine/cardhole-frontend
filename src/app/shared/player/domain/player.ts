@@ -9,4 +9,5 @@ export class Player {
   life: number;
   handSize: number = 0;
   hand: Card[] = [];
+  battlefield: Card[] = [];
 }
