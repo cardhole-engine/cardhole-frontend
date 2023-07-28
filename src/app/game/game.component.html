@@ -33,7 +33,7 @@
     </div>
     <div class="col-8">
       <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
-        <div class="col-1 g-0">
+        <div class="col-1 g-0" style="border-right: 3px solid dimgray;">
           <img src="https://placehold.co/80x80" alt="Opponent avatar" class="img-fluid">
 
           <div *ngIf="gameState.game.players.length == 1" class="fw-bold text-center mb-5">???</div>
@@ -52,7 +52,7 @@
         </div>
       </div>
 
-      <div class="row" style="height: 4vh; max-height: 28px; background: lightblue;">
+      <div class="row" style="height: 4vh; max-height: 28px; background: lightblue; border-right: 3px solid dimgray; border-left: 3px solid dimgray;">
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UNTAP'">Untap</div>
 
@@ -72,55 +72,55 @@
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Main</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'PRECOMBAT_MAIN'">Main</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center" style="text-wrap: nowrap;">Bgn cmbt</div>
+          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'BEGIN_COMBAT'">Bgn cmbt</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Attack</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'ATTACK'">Attack</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Block</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'BLOCK'">Block</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Damage</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DAMAGE'">Damage</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center" style="text-wrap: nowrap;">End cmbt</div>
+          <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'END_COMBAT'">End cmbt</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Main</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'POSTCOMBAT_MAIN'">Main</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">End</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'END'">End</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
-          <div class="text-center">Cleanup</div>
+          <div class="text-center" [class.fw-bold]="gameState.activeStep == 'CLEANUP'">Cleanup</div>
 
           <button class="stop-at-opponent"></button>
           <button class="stop-at-mine"></button>
@@ -128,7 +128,7 @@
       </div>
 
       <div class="row" style="height: 40vh; background: beige; border: 3px solid dimgray;">
-        <div class="col-1 g-0">
+        <div class="col-1 g-0" style="border-right: 3px solid dimgray;">
           <img src="https://placehold.co/80x80" alt="Your avatar" class="img-fluid">
 
           <div class="fw-bold text-center" [textContent]="gameState.game.getMyPlayer().name"></div>
@@ -148,7 +148,7 @@
       <div class="row" style="height: 16vh; background: lightgray">
         <div class="col">
           <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;">
-            <div [textContent]="card.name" class="card-head"></div>
+            <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
             <div class="card-body">body...</div>
           </div>
         </div>

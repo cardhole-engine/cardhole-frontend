@@ -21,6 +21,9 @@ import {StepChangeOutgoingMessage} from "./networking/step-change-outgoing-messa
 import {
   ShowSingleQuestionGameMessageOutgoingMessage
 } from "./networking/show-single-question-game-message-outgoing-message";
+import {
+  RefreshCanBeCastAndActivatedListOutgoingMessage
+} from "./networking/refresh-can-be-cast-and-activated-list-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -163,6 +166,13 @@ export class MessageHandlerService {
 
         break;
       case 'RefreshCanBeCastAndActivatedListOutgoingMessage':
+        let refreshCanBeCastAndActivatedListOutgoingMessage: RefreshCanBeCastAndActivatedListOutgoingMessage =
+          messageObj as RefreshCanBeCastAndActivatedListOutgoingMessage;
+
+        this.gameState.game.getMyPlayer().hand
+          .forEach(card => {
+            card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
+          })
         break;
       default:
         console.log("Unknown message!", messageObj);
