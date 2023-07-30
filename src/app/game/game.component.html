@@ -44,8 +44,10 @@
             <div class="player-life-container">
               <div [textContent]="gameState.game.getOpponent().life" class="fw-bold text-center player-life"></div>
             </div>
-            <div class="fw-bold text-center pt-5">{{gameState.game.getOpponent().deckSize}} cards in deck</div>
-            <div class="fw-bold text-center">{{gameState.game.getOpponent().handSize}} cards in hand</div>
+            <div class="fw-bold ms-1">
+              <img src="assets/icons/hand.svg" style="width: 24px;"> {{gameState.game.getOpponent().handSize}}</div>
+            <div class="fw-bold pt-2 ms-1">
+              <img src="assets/icons/deck.svg" style="width: 24px;"> {{gameState.game.getOpponent().deckSize}}</div>
           </div>
         </div>
         <div class="col-11 g-0">
@@ -147,8 +149,10 @@
             <div class="player-life-container">
               <div class="fw-bold text-center player-life" [textContent]="gameState.game.getMyPlayer().life"></div>
             </div>
-            <div class="fw-bold text-center pt-5">{{gameState.game.getMyPlayer().deckSize}} cards in deck</div>
-            <div class="fw-bold text-center">{{gameState.game.getMyPlayer().handSize}} cards in hand</div>
+            <div class="fw-bold ms-1">
+              <img src="assets/icons/hand.svg" style="width: 24px;"> {{gameState.game.getMyPlayer().handSize}}</div>
+            <div class="fw-bold pt-2 ms-1">
+              <img src="assets/icons/deck.svg" style="width: 24px;"> {{gameState.game.getMyPlayer().deckSize}}</div>
           </div>
         </div>
         <div class="col-11 g-0">
