@@ -25,6 +25,7 @@ import {
   RefreshCanBeCastAndActivatedListOutgoingMessage
 } from "./networking/refresh-can-be-cast-and-activated-list-outgoing-message";
 import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-battlefield-outgoing-message";
+import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -153,7 +154,16 @@ export class MessageHandlerService {
         updatedPlayer.handSize = handSizeChangeOutgoingMessage.handSize;
         break;
       case 'DeckSizeChangeOutgoingMessage':
-        //TODO:
+        let deckSizeChangeOutgoingMessage: DeckSizeChangeOutgoingMessage = messageObj as DeckSizeChangeOutgoingMessage;
+
+        let playerToUpdateDeckFor: Player | undefined = this.gameState.game.players.find(player =>
+          player.id == deckSizeChangeOutgoingMessage.playerId);
+
+        if (playerToUpdateDeckFor == undefined) {
+          throw new Error();
+        }
+
+        playerToUpdateDeckFor.deckSize = deckSizeChangeOutgoingMessage.deckSize;
         break;
       case 'ResetMessageOutgoingMessage':
         this.gameState.gameMessage = '';
