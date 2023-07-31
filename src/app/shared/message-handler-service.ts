@@ -187,6 +187,10 @@ export class MessageHandlerService {
           .forEach(card => {
             card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
           })
+        this.gameState.game.getMyPlayer().battlefield
+          .forEach(card => {
+            card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
+          })
         break;
       case 'CardEnterToBattlefieldOutgoingMessage':
         let cardEnterToBattlefieldOutgoingMessage: CardEnterToBattlefieldOutgoingMessage =
