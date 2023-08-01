@@ -44,10 +44,34 @@
             <div class="player-life-container">
               <div [textContent]="gameState.game.getOpponent().life" class="fw-bold text-center player-life"></div>
             </div>
+
             <div class="fw-bold ms-1">
               <img src="assets/icons/hand.svg" style="width: 24px;"> {{gameState.game.getOpponent().handSize}}</div>
             <div class="fw-bold pt-2 ms-1">
               <img src="assets/icons/deck.svg" style="width: 24px;"> {{gameState.game.getOpponent().deckSize}}</div>
+
+            <div class="text-center pt-2">
+              <table class="w-100">
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/w.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.whiteMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/u.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.blueMana" class="p-0"></td>
+                </tr>
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/b.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.blackMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/r.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.redMana" class="p-0"></td>
+                </tr>
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/g.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.greenMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/x.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getOpponent().manaPool.colorlessMana" class="p-0"></td>
+                </tr>
+              </table>
+            </div>
           </div>
         </div>
         <div class="col-11 g-0">
@@ -153,8 +177,33 @@
               <img src="assets/icons/hand.svg" style="width: 24px;"> {{gameState.game.getMyPlayer().handSize}}</div>
             <div class="fw-bold pt-2 ms-1">
               <img src="assets/icons/deck.svg" style="width: 24px;"> {{gameState.game.getMyPlayer().deckSize}}</div>
+
+            <div class="text-center pt-2">
+            <table class="w-100">
+              <tr>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/w.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.whiteMana" class="p-0"></td>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/u.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.blueMana" class="p-0"></td>
+              </tr>
+              <tr>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/b.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.blackMana" class="p-0"></td>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/r.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.redMana" class="p-0"></td>
+              </tr>
+              <tr>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/g.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.greenMana" class="p-0"></td>
+              <td><img src="http://eakett.ca/mtgimage/symbol/mana/x.svg" class="symbol p-0"></td>
+              <td [textContent]="gameState.game.getMyPlayer().manaPool.colorlessMana" class="p-0"></td>
+              </tr>
+            </table>
+            </div>
           </div>
         </div>
+
+        <!--My player BATTLEFIELD -->
         <div class="col-11 g-0">
           <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card"
                style="display: inline-block;">
@@ -165,6 +214,7 @@
       </div>
 
       <div class="row player-hand">
+        <!--My player HAND -->
         <div class="col">
           <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card" style="display: inline-block;"
                (click)="castCard(card)">

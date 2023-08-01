@@ -26,6 +26,7 @@ import {
 } from "./networking/refresh-can-be-cast-and-activated-list-outgoing-message";
 import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-battlefield-outgoing-message";
 import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgoing-message";
+import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -209,6 +210,25 @@ export class MessageHandlerService {
         enteringCard.name = cardEnterToBattlefieldOutgoingMessage.name;
 
         owner.battlefield.push(enteringCard);
+        break;
+      case 'RefreshManaPoolOutgoingMessage':
+        let refreshManaPoolOutgoingMessage: RefreshManaPoolOutgoingMessage =
+          messageObj as RefreshManaPoolOutgoingMessage;
+
+        let playerWithManaPool: Player | undefined = this.gameState.game.players.find(player =>
+          player.id == refreshManaPoolOutgoingMessage.playerId);
+
+        if (playerWithManaPool == undefined) {
+          throw new Error("Unknown owner!");
+        }
+
+        playerWithManaPool.manaPool.whiteMana = refreshManaPoolOutgoingMessage.whiteMana;
+        playerWithManaPool.manaPool.blueMana = refreshManaPoolOutgoingMessage.blueMana;
+        playerWithManaPool.manaPool.blackMana = refreshManaPoolOutgoingMessage.blackMana;
+        playerWithManaPool.manaPool.redMana = refreshManaPoolOutgoingMessage.redMana;
+        playerWithManaPool.manaPool.greenMana = refreshManaPoolOutgoingMessage.greenMana;
+        playerWithManaPool.manaPool.colorlessMana = refreshManaPoolOutgoingMessage.colorlessMana;
+
         break;
       default:
         console.log("Unknown message!", messageObj);

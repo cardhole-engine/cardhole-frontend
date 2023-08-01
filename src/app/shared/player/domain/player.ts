@@ -1,4 +1,5 @@
 import {Card} from "../../card/card";
+import {ManaPool} from "../../mana/domain/mana-pool";
 
 export class Player {
 
@@ -10,4 +11,5 @@ export class Player {
   handSize: number = 0;
   hand: Card[] = [];
   battlefield: Card[] = [];
+  manaPool: ManaPool = new ManaPool();
 }
