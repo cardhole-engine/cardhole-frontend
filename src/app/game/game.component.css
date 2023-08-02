@@ -70,3 +70,11 @@
   max-width: 16px;
   max-height: 16px;
 }
+
+.step-disabled {
+  background: darkorange;
+}
+
+.step-enabled {
+  background: darkseagreen;
+}

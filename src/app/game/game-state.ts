@@ -17,4 +17,7 @@ export class GameState {
   public gameMessageQuestionButtonTwoId: string;
   public gameMessageQuestionButtonOneText: string;
   public gameMessageQuestionButtonTwoText: string;
+
+  public stopAtStepInMyTurn: any;
+  public stopAtStepInOpponentTurn: any;
 }

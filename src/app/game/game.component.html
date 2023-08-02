@@ -88,79 +88,98 @@
       <div class="row step-container">
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UNTAP'">Untap</div>
-
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UPKEEP'">Upkeep</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.UPKEEP,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.UPKEEP}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.UPKEEP,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.UPKEEP}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DRAW'">Draw</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.DRAW,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DRAW}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.DRAW,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.DRAW}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'PRECOMBAT_MAIN'">Main</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.PRECOMBAT_MAIN,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.PRECOMBAT_MAIN}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.PRECOMBAT_MAIN,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.PRECOMBAT_MAIN}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'BEGIN_COMBAT'">
             Bgn cmbt
           </div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.BEGIN_COMBAT,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BEGIN_COMBAT}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.BEGIN_COMBAT,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.BEGIN_COMBAT}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'ATTACK'">Attack</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.ATTACK,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.ATTACK}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.ATTACK,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.ATTACK}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'BLOCK'">Block</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.BLOCK,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BLOCK}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.BLOCK,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.BLOCK}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DAMAGE'">Damage</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.DAMAGE,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DAMAGE}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.DAMAGE,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.DAMAGE}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'END_COMBAT'">End
             cmbt
           </div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.END_COMBAT,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END_COMBAT}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.END_COMBAT,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.END_COMBAT}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'POSTCOMBAT_MAIN'">Main</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.POSTCOMBAT_MAIN,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.POSTCOMBAT_MAIN}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.POSTCOMBAT_MAIN,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.POSTCOMBAT_MAIN}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'END'">End</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.END,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.END,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.END}"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'CLEANUP'">Cleanup</div>
 
-          <button class="stop-at-opponent"></button>
-          <button class="stop-at-mine"></button>
+          <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.CLEANUP,
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.CLEANUP}"></button>
+          <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.CLEANUP,
+                   'stop-enabled': gameState.stopAtStepInMyTurn.CLEANUP}"></button>
         </div>
       </div>
 
@@ -179,26 +198,26 @@
               <img src="assets/icons/deck.svg" style="width: 24px;"> {{gameState.game.getMyPlayer().deckSize}}</div>
 
             <div class="text-center pt-2">
-            <table class="w-100">
-              <tr>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/w.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.whiteMana" class="p-0"></td>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/u.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.blueMana" class="p-0"></td>
-              </tr>
-              <tr>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/b.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.blackMana" class="p-0"></td>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/r.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.redMana" class="p-0"></td>
-              </tr>
-              <tr>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/g.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.greenMana" class="p-0"></td>
-              <td><img src="http://eakett.ca/mtgimage/symbol/mana/x.svg" class="symbol p-0"></td>
-              <td [textContent]="gameState.game.getMyPlayer().manaPool.colorlessMana" class="p-0"></td>
-              </tr>
-            </table>
+              <table class="w-100">
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/w.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.whiteMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/u.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.blueMana" class="p-0"></td>
+                </tr>
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/b.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.blackMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/r.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.redMana" class="p-0"></td>
+                </tr>
+                <tr>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/g.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.greenMana" class="p-0"></td>
+                  <td><img src="http://eakett.ca/mtgimage/symbol/mana/x.svg" class="symbol p-0"></td>
+                  <td [textContent]="gameState.game.getMyPlayer().manaPool.colorlessMana" class="p-0"></td>
+                </tr>
+              </table>
             </div>
           </div>
         </div>

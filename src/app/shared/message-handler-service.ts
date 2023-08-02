@@ -27,6 +27,7 @@ import {
 import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-battlefield-outgoing-message";
 import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgoing-message";
 import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-outgoing-message";
+import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -77,6 +78,9 @@ export class MessageHandlerService {
           })
 
         this.gameState.game = game;
+
+        this.gameState.stopAtStepInMyTurn = {};
+        this.gameState.stopAtStepInOpponentTurn = {};
 
         this.router.navigateByUrl('/game')
         break;
@@ -228,7 +232,12 @@ export class MessageHandlerService {
         playerWithManaPool.manaPool.redMana = refreshManaPoolOutgoingMessage.redMana;
         playerWithManaPool.manaPool.greenMana = refreshManaPoolOutgoingMessage.greenMana;
         playerWithManaPool.manaPool.colorlessMana = refreshManaPoolOutgoingMessage.colorlessMana;
+        break;
+      case 'RefreshStopsOutgoingMessage':
+        let refreshStopsOutgoingMessage: RefreshStopsOutgoingMessage = messageObj as RefreshStopsOutgoingMessage;
 
+        this.gameState.stopAtStepInMyTurn = refreshStopsOutgoingMessage.stopAtStepInMyTurn;
+        this.gameState.stopAtStepInOpponentTurn = refreshStopsOutgoingMessage.stopAtStepInOpponentTurn;
         break;
       default:
         console.log("Unknown message!", messageObj);
