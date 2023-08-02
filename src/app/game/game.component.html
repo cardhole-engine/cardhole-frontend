@@ -93,25 +93,31 @@
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'UPKEEP'">Upkeep</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.UPKEEP,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.UPKEEP}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.UPKEEP}"
+                  (click)="changeStopOnOpponentsTurn('UPKEEP')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.UPKEEP,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.UPKEEP}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.UPKEEP}"
+                  (click)="changeStopOnMyTurn('UPKEEP')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DRAW'">Draw</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.DRAW,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DRAW}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DRAW}"
+                  (click)="changeStopOnOpponentsTurn('DRAW')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.DRAW,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.DRAW}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.DRAW}"
+                  (click)="changeStopOnMyTurn('DRAW')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'PRECOMBAT_MAIN'">Main</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.PRECOMBAT_MAIN,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.PRECOMBAT_MAIN}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.PRECOMBAT_MAIN}"
+                  (click)="changeStopOnOpponentsTurn('PRECOMBAT_MAIN')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.PRECOMBAT_MAIN,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.PRECOMBAT_MAIN}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.PRECOMBAT_MAIN}"
+                  (click)="changeStopOnMyTurn('PRECOMBAT_MAIN')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'BEGIN_COMBAT'">
@@ -119,33 +125,41 @@
           </div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.BEGIN_COMBAT,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BEGIN_COMBAT}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BEGIN_COMBAT}"
+                  (click)="changeStopOnOpponentsTurn('BEGIN_COMBAT')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.BEGIN_COMBAT,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.BEGIN_COMBAT}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.BEGIN_COMBAT}"
+                  (click)="changeStopOnMyTurn('BEGIN_COMBAT')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'ATTACK'">Attack</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.ATTACK,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.ATTACK}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.ATTACK}"
+                  (click)="changeStopOnOpponentsTurn('ATTACK')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.ATTACK,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.ATTACK}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.ATTACK}"
+                  (click)="changeStopOnMyTurn('ATTACK')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'BLOCK'">Block</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.BLOCK,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BLOCK}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.BLOCK}"
+                  (click)="changeStopOnOpponentsTurn('BLOCK')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.BLOCK,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.BLOCK}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.BLOCK}"
+                  (click)="changeStopOnMyTurn('BLOCK')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'DAMAGE'">Damage</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.DAMAGE,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DAMAGE}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.DAMAGE}"
+                  (click)="changeStopOnOpponentsTurn('DAMAGE')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.DAMAGE,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.DAMAGE}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.DAMAGE}"
+                  (click)="changeStopOnMyTurn('DAMAGE')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" style="text-wrap: nowrap;" [class.fw-bold]="gameState.activeStep == 'END_COMBAT'">End
@@ -153,33 +167,41 @@
           </div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.END_COMBAT,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END_COMBAT}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END_COMBAT}"
+                  (click)="changeStopOnOpponentsTurn('END_COMBAT')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.END_COMBAT,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.END_COMBAT}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.END_COMBAT}"
+                  (click)="changeStopOnMyTurn('END_COMBAT')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'POSTCOMBAT_MAIN'">Main</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.POSTCOMBAT_MAIN,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.POSTCOMBAT_MAIN}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.POSTCOMBAT_MAIN}"
+                  (click)="changeStopOnOpponentsTurn('POSTCOMBAT_MAIN')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.POSTCOMBAT_MAIN,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.POSTCOMBAT_MAIN}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.POSTCOMBAT_MAIN}"
+                  (click)="changeStopOnMyTurn('POSTCOMBAT_MAIN')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'END'">End</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.END,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.END}"
+                  (click)="changeStopOnOpponentsTurn('END')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.END,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.END}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.END}"
+                  (click)="changeStopOnMyTurn('END')"></button>
         </div>
         <div class="col g-0">
           <div class="text-center" [class.fw-bold]="gameState.activeStep == 'CLEANUP'">Cleanup</div>
 
           <button class="stop-at-opponent" [class]="{'step-disabled': !gameState.stopAtStepInOpponentTurn.CLEANUP,
-                   'stop-enabled': gameState.stopAtStepInOpponentTurn.CLEANUP}"></button>
+                   'stop-enabled': gameState.stopAtStepInOpponentTurn.CLEANUP}"
+                  (click)="changeStopOnOpponentsTurn('CLEANUP')"></button>
           <button class="stop-at-mine" [class]="{'step-disabled': !gameState.stopAtStepInMyTurn.CLEANUP,
-                   'stop-enabled': gameState.stopAtStepInMyTurn.CLEANUP}"></button>
+                   'stop-enabled': gameState.stopAtStepInMyTurn.CLEANUP}"
+                  (click)="changeStopOnMyTurn('CLEANUP')"></button>
         </div>
       </div>
 

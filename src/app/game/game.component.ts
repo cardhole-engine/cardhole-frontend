@@ -4,6 +4,7 @@ import {ConnectionService} from "../shared/connection-service";
 import {QuestionResponseIncomingMessage} from "../shared/networking/question-response-incoming-message";
 import {Card} from "../shared/card/card";
 import {CastCardIncomingMessage} from "../shared/networking/cast-card-incoming-message";
+import {ChangeStopIncomingMessage} from "../shared/networking/change-stop-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -22,8 +23,18 @@ export class GameComponent {
     this.connectionService.sendMessage(new QuestionResponseIncomingMessage(value));
   }
 
-  castCard(card: Card) {
+  castCard(card: Card): void {
     //TODO: targeting
     this.connectionService.sendMessage(new CastCardIncomingMessage(card.id, null, null));
+  }
+
+  changeStopOnOpponentsTurn(step: string): void {
+    this.connectionService.sendMessage(new ChangeStopIncomingMessage(step, false,
+      !this.gameState.stopAtStepInOpponentTurn[step]));
+  }
+
+  changeStopOnMyTurn(step: string): void {
+    this.connectionService.sendMessage(new ChangeStopIncomingMessage(step, true,
+      !this.gameState.stopAtStepInOpponentTurn[step]));
   }
 }
