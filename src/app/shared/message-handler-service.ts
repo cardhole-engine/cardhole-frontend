@@ -28,6 +28,7 @@ import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-
 import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgoing-message";
 import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-outgoing-message";
 import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-message";
+import {CardTappedOnBattlefieldOutgoingMessage} from "./networking/card-tapped-on-battlefield-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -238,6 +239,20 @@ export class MessageHandlerService {
 
         this.gameState.stopAtStepInMyTurn = refreshStopsOutgoingMessage.stopAtStepInMyTurn;
         this.gameState.stopAtStepInOpponentTurn = refreshStopsOutgoingMessage.stopAtStepInOpponentTurn;
+        break;
+      case 'CardTappedOnBattlefieldOutgoingMessage':
+        let cardTappedOnBattlefieldOutgoingMessage: CardTappedOnBattlefieldOutgoingMessage =
+          messageObj as CardTappedOnBattlefieldOutgoingMessage;
+
+        let tappedCard: Card | undefined = this.gameState.game.players
+          .flatMap(player => player.battlefield)
+          .find(card => card.id == cardTappedOnBattlefieldOutgoingMessage.cardId);
+
+        if (tappedCard == undefined) {
+          throw new Error("Unknown card!");
+        }
+
+        tappedCard.tapped = true;
         break;
       default:
         console.log("Unknown message!", messageObj);

@@ -78,3 +78,7 @@
 .step-enabled {
   background: darkseagreen;
 }
+
+.tapped-card {
+  transform: rotate(90deg);
+}
