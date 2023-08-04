@@ -5,6 +5,8 @@ import {QuestionResponseIncomingMessage} from "../shared/networking/question-res
 import {Card} from "../shared/card/card";
 import {CastCardIncomingMessage} from "../shared/networking/cast-card-incoming-message";
 import {ChangeStopIncomingMessage} from "../shared/networking/change-stop-incoming-message";
+import {Ability} from "../shared/card/ability";
+import {UseActivatedAbilityIncomingMessage} from "../shared/networking/use-activated-ability-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -26,6 +28,10 @@ export class GameComponent {
   castCard(card: Card): void {
     //TODO: targeting
     this.connectionService.sendMessage(new CastCardIncomingMessage(card.id, null, null));
+  }
+
+  activateAbilityOnCard(ability: Ability) {
+    this.connectionService.sendMessage(new UseActivatedAbilityIncomingMessage(ability.id))
   }
 
   changeStopOnOpponentsTurn(step: string): void {

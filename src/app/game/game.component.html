@@ -77,7 +77,8 @@
         <div class="col-11 g-0">
           <div *ngIf="gameState.game.players.length > 1">
             <div *ngFor="let card of gameState.game.getOpponent().battlefield" class="card"
-                 [class.tapped-card]="card.tapped" style="display: inline-block;">
+                 [class.tapped-card]="card.tapped" style="display: inline-block;"
+                 (click)="activateAbilityOnCard(card.activatedAbilities[0])">
               <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
               <div class="card-body">body...</div>
             </div>
@@ -247,7 +248,8 @@
         <!--My player BATTLEFIELD -->
         <div class="col-11 g-0">
           <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card"
-               [class.tapped-card]="card.tapped" style="display: inline-block;">
+               [class.tapped-card]="card.tapped" style="display: inline-block;"
+               (click)="activateAbilityOnCard(card.activatedAbilities[0])">
             <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
             <div class="card-body">body...</div>
           </div>

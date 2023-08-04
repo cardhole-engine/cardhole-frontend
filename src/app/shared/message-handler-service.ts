@@ -213,6 +213,7 @@ export class MessageHandlerService {
 
         enteringCard.id = cardEnterToBattlefieldOutgoingMessage.id;
         enteringCard.name = cardEnterToBattlefieldOutgoingMessage.name;
+        enteringCard.activatedAbilities = cardEnterToBattlefieldOutgoingMessage.activatedAbilities;
 
         owner.battlefield.push(enteringCard);
         break;
