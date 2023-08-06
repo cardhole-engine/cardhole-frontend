@@ -29,6 +29,7 @@ import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgo
 import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-outgoing-message";
 import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-message";
 import {CardTappedOnBattlefieldOutgoingMessage} from "./networking/card-tapped-on-battlefield-outgoing-message";
+import {LoginResultOutgoingMessage} from "./networking/login-result-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -48,16 +49,19 @@ export class MessageHandlerService {
     let messageObj: Message = JSON.parse(message);
 
     switch (messageObj.type) {
+      case 'LoginResultOutgoingMessage':
+        let loginResultOutgoingMessage: LoginResultOutgoingMessage = messageObj as LoginResultOutgoingMessage;
+
+        this.gameState.staticAssetLocation = loginResultOutgoingMessage.staticAssetLocation;
+
+        this.router.navigateByUrl('/home');
+        break;
       case 'RefreshHomePageOutgoingMessage':
         let refreshHomePageMessage: RefreshHomePageMessage = messageObj as RefreshHomePageMessage;
 
         console.log("refresh game data");
 
         this.lobbyState.games = refreshHomePageMessage.games;
-
-        if (this.router.routerState.snapshot.url !== '/home') {
-          this.router.navigateByUrl('/home');
-        }
         break;
       case 'JoinGameOutgoingMessage':
         let joinGameOutgoingMessage: JoinGameOutgoingMessage = messageObj as JoinGameOutgoingMessage;
@@ -138,6 +142,8 @@ export class MessageHandlerService {
 
         card.id = addCardToHandOutgoingMessage.id;
         card.name = addCardToHandOutgoingMessage.name;
+        card.set = addCardToHandOutgoingMessage.set;
+        card.setId = addCardToHandOutgoingMessage.setId;
 
         this.gameState.game.getMyPlayer().hand.push(card);
         break;
@@ -214,6 +220,8 @@ export class MessageHandlerService {
         enteringCard.id = cardEnterToBattlefieldOutgoingMessage.id;
         enteringCard.name = cardEnterToBattlefieldOutgoingMessage.name;
         enteringCard.activatedAbilities = cardEnterToBattlefieldOutgoingMessage.activatedAbilities;
+        enteringCard.set = cardEnterToBattlefieldOutgoingMessage.set;
+        enteringCard.setId = cardEnterToBattlefieldOutgoingMessage.setId;
 
         owner.battlefield.push(enteringCard);
         break;

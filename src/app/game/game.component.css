@@ -48,6 +48,7 @@
 
 .player-hand {
   height: 16vh;
+  overflow: scroll;
   background: lightgray;
   border-right: 3px solid dimgray;
   border-left: 3px solid dimgray;
@@ -81,4 +82,14 @@
 
 .tapped-card {
   transform: rotate(90deg);
+}
+
+.battlefield-area {
+  height: 40vh;
+  overflow: scroll;
+  padding: 10px;
+}
+
+.battlefield-card-image {
+  max-width: 120px;
 }

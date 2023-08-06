@@ -7,4 +7,6 @@ export class CardEnterToBattlefieldOutgoingMessage extends Message {
   name: string;
   ownerId: string;
   activatedAbilities: Ability[];
+  set: string;
+  setId: number;
 }

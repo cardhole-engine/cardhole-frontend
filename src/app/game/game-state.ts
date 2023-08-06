@@ -9,6 +9,8 @@ export class GameState {
   public game: Game;
   public logs: string[] = [];
 
+  public staticAssetLocation: string;
+
   public activeStep: string;
 
   public gameMessage: string;
