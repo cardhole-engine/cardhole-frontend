@@ -30,6 +30,7 @@ import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-out
 import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-message";
 import {CardTappedOnBattlefieldOutgoingMessage} from "./networking/card-tapped-on-battlefield-outgoing-message";
 import {LoginResultOutgoingMessage} from "./networking/login-result-outgoing-message";
+import {CardUntappedOnBattlefieldOutgoingMessage} from "./networking/card-untapped-on-battlefield-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -262,6 +263,20 @@ export class MessageHandlerService {
         }
 
         tappedCard.tapped = true;
+        break;
+      case 'CardUntappedOnBattlefieldOutgoingMessage':
+        let cardUntappedOnBattlefieldOutgoingMessage: CardUntappedOnBattlefieldOutgoingMessage =
+          messageObj as CardUntappedOnBattlefieldOutgoingMessage;
+
+        let untappedCard: Card | undefined = this.gameState.game.players
+          .flatMap(player => player.battlefield)
+          .find(card => card.id == cardUntappedOnBattlefieldOutgoingMessage.cardId);
+
+        if (untappedCard == undefined) {
+          throw new Error("Unknown card!");
+        }
+
+        untappedCard.tapped = false;
         break;
       default:
         console.log("Unknown message!", messageObj);
