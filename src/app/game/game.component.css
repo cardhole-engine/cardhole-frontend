@@ -48,7 +48,7 @@
 
 .player-hand {
   height: 16vh;
-  overflow: scroll;
+  overflow: auto;
   background: lightgray;
   border-right: 3px solid dimgray;
   border-left: 3px solid dimgray;
@@ -86,7 +86,7 @@
 
 .battlefield-area {
   height: 40vh;
-  overflow: scroll;
+  overflow: auto;
   padding: 10px;
 }
 
