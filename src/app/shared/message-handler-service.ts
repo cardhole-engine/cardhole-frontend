@@ -31,6 +31,9 @@ import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-m
 import {CardTappedOnBattlefieldOutgoingMessage} from "./networking/card-tapped-on-battlefield-outgoing-message";
 import {LoginResultOutgoingMessage} from "./networking/login-result-outgoing-message";
 import {CardUntappedOnBattlefieldOutgoingMessage} from "./networking/card-untapped-on-battlefield-outgoing-message";
+import {CardPutToStackOutgoingMessage} from "./networking/card-put-to-stack-outgoing-message";
+import {StackEntry} from "./stack/domain/stack-entry";
+import {CardRemovedFromStackOutgoingMessage} from "./networking/card-removed-from-stack-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -277,6 +280,27 @@ export class MessageHandlerService {
         }
 
         untappedCard.tapped = false;
+        break;
+      case 'CardPutToStackOutgoingMessage':
+        let cardPutToStackOutgoingMessage: CardPutToStackOutgoingMessage = messageObj as CardPutToStackOutgoingMessage;
+
+        let stackEntry: StackEntry = new StackEntry();
+
+        stackEntry.id = cardPutToStackOutgoingMessage.id;
+        stackEntry.name = cardPutToStackOutgoingMessage.name;
+        stackEntry.ownerId = cardPutToStackOutgoingMessage.ownerId;
+        stackEntry.set = cardPutToStackOutgoingMessage.set;
+        stackEntry.setId = cardPutToStackOutgoingMessage.setId;
+
+        this.gameState.stack.stackEntries.push(stackEntry);
+        break;
+
+      case 'CardRemovedFromStackOutgoingMessage':
+        let cardRemovedFromStackOutgoingMessage: CardRemovedFromStackOutgoingMessage =
+          messageObj as CardRemovedFromStackOutgoingMessage;
+
+        this.gameState.stack.stackEntries = this.gameState.stack.stackEntries
+          .filter(stackEntry => stackEntry.id !== cardRemovedFromStackOutgoingMessage.id);
         break;
       default:
         console.log("Unknown message!", messageObj);

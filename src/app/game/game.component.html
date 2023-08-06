@@ -29,7 +29,14 @@
         <div *ngIf="gameState.gameMessageType === 'MESSAGE'" [textContent]="gameState.gameMessage"></div>
       </div>
       <div style="height: 45vh; border-left: 3px solid dimgray; border-bottom: 3px solid dimgray;">
-        stack
+        <div *ngFor="let stackEntry of gameState.stack.stackEntries" class="card" style="display: inline-block;">
+          <div [textContent]="stackEntry.name" class="card-head"></div>
+          <div class="card-body p-2">
+            <img [src]="gameState.staticAssetLocation + '/' + stackEntry.set + '/' + stackEntry.setId + '.jpg'"
+                 class="battlefield-card-image"/>
+            <p class="card-text">body...</p>
+          </div>
+        </div>
       </div>
     </div>
     <div class="col-8">
