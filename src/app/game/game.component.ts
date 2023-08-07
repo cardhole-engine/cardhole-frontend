@@ -7,6 +7,7 @@ import {CastCardIncomingMessage} from "../shared/networking/cast-card-incoming-m
 import {ChangeStopIncomingMessage} from "../shared/networking/change-stop-incoming-message";
 import {Ability} from "../shared/card/ability";
 import {UseActivatedAbilityIncomingMessage} from "../shared/networking/use-activated-ability-incoming-message";
+import {DeclareAttackerIncomingMessage} from "../shared/networking/declare-attacker-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -30,8 +31,17 @@ export class GameComponent {
     this.connectionService.sendMessage(new CastCardIncomingMessage(card.id, null, null));
   }
 
-  activateAbilityOnCard(ability: Ability) {
+  isDeclaringAttackers(): boolean {
+    return this.gameState.gameMessageType === 'SINGLE_QUESTION'
+      && this.gameState.gameMessageQuestionButtonOneId === 'DECLARE_ATTACKERS';
+  }
+
+  activateAbilityOnCard(ability: Ability): void {
     this.connectionService.sendMessage(new UseActivatedAbilityIncomingMessage(ability.id))
+  }
+
+  attackWithCreatureCard(card: Card): void {
+    this.connectionService.sendMessage(new DeclareAttackerIncomingMessage(card.id))
   }
 
   changeStopOnOpponentsTurn(step: string): void {

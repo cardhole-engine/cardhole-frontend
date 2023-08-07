@@ -34,6 +34,7 @@ import {CardUntappedOnBattlefieldOutgoingMessage} from "./networking/card-untapp
 import {CardPutToStackOutgoingMessage} from "./networking/card-put-to-stack-outgoing-message";
 import {StackEntry} from "./stack/domain/stack-entry";
 import {CardRemovedFromStackOutgoingMessage} from "./networking/card-removed-from-stack-outgoing-message";
+import {MarkCardIsAttackingOutgoingMessage} from "./networking/mark-card-is-attacking-outgoing-message";
 
 @Injectable({
   providedIn: 'root'
@@ -301,6 +302,20 @@ export class MessageHandlerService {
 
         this.gameState.stack.stackEntries = this.gameState.stack.stackEntries
           .filter(stackEntry => stackEntry.id !== cardRemovedFromStackOutgoingMessage.id);
+        break;
+      case 'MarkCardIsAttackingOutgoingMessage':
+        let markCardIsAttackingOutgoingMessage: MarkCardIsAttackingOutgoingMessage =
+          messageObj as MarkCardIsAttackingOutgoingMessage;
+
+        let attackingCard: Card | undefined = this.gameState.game.players
+          .flatMap(player => player.battlefield)
+          .find(card => card.id === markCardIsAttackingOutgoingMessage.cardId);
+
+        if (attackingCard == undefined) {
+          throw new Error("Unknown card!");
+        }
+
+        attackingCard.attacking = true;
         break;
       default:
         console.log("Unknown message!", messageObj);

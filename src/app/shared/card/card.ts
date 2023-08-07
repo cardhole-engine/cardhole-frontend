@@ -9,6 +9,7 @@ export class Card {
   setId: number;
 
   tapped: boolean;
+  attacking: boolean;
   highlighted: boolean;
   activatedAbilities: Ability[];
 }

@@ -86,7 +86,8 @@
             <div *ngFor="let card of gameState.game.getOpponent().battlefield" class="card"
                  [class.tapped-card]="card.tapped" style="display: inline-block;"
                  (click)="activateAbilityOnCard(card.activatedAbilities[0])">
-              <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
+              <div [textContent]="card.name" [class.text-warning]="card.highlighted"
+                   [class.text-danger]="card.attacking" class="card-head"></div>
               <div class="card-body p-2">
                 <img [src]="gameState.staticAssetLocation + '/' + card.set + '/' + card.setId + '.jpg'"
                      class="battlefield-card-image"/>
@@ -260,8 +261,10 @@
         <div class="col-11 g-0 battlefield-area">
           <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card"
                [class.tapped-card]="card.tapped" style="display: inline-block;"
-               (click)="activateAbilityOnCard(card.activatedAbilities[0])">
-            <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
+               (click)="isDeclaringAttackers() ? attackWithCreatureCard(card)
+                : activateAbilityOnCard(card.activatedAbilities[0]);">
+            <div [textContent]="card.name" [class.text-warning]="card.highlighted" [class.text-danger]="card.attacking"
+                 class="card-head"></div>
             <div class="card-body p-2">
               <img [src]="gameState.staticAssetLocation + '/' + card.set + '/' + card.setId + '.jpg'"
                    class="battlefield-card-image"/>
