@@ -8,6 +8,7 @@ import {ChangeStopIncomingMessage} from "../shared/networking/change-stop-incomi
 import {Ability} from "../shared/card/ability";
 import {UseActivatedAbilityIncomingMessage} from "../shared/networking/use-activated-ability-incoming-message";
 import {DeclareAttackerIncomingMessage} from "../shared/networking/declare-attacker-incoming-message";
+import {IntendsToBlockWithIncomingMessage} from "../shared/networking/intends-to-block-with-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -36,12 +37,21 @@ export class GameComponent {
       && this.gameState.gameMessageQuestionButtonOneId === 'DECLARE_ATTACKERS';
   }
 
+  isDeclaringBlockers(): boolean {
+    return this.gameState.gameMessageType === 'SINGLE_QUESTION'
+      && this.gameState.gameMessageQuestionButtonOneId === 'DECLARE_BLOCKERS';
+  }
+
   activateAbilityOnCard(ability: Ability): void {
     this.connectionService.sendMessage(new UseActivatedAbilityIncomingMessage(ability.id))
   }
 
   attackWithCreatureCard(card: Card): void {
     this.connectionService.sendMessage(new DeclareAttackerIncomingMessage(card.id))
+  }
+
+  blockWithCreatureCard(card: Card): void {
+    this.connectionService.sendMessage(new IntendsToBlockWithIncomingMessage(card.id))
   }
 
   changeStopOnOpponentsTurn(step: string): void {
