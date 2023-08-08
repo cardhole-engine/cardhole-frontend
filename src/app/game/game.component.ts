@@ -9,6 +9,7 @@ import {Ability} from "../shared/card/ability";
 import {UseActivatedAbilityIncomingMessage} from "../shared/networking/use-activated-ability-incoming-message";
 import {DeclareAttackerIncomingMessage} from "../shared/networking/declare-attacker-incoming-message";
 import {IntendsToBlockWithIncomingMessage} from "../shared/networking/intends-to-block-with-incoming-message";
+import {BlockCreatureIncomingMessage} from "../shared/networking/block-creature-incoming-message";
 
 @Component({
   selector: 'app-game',
@@ -52,6 +53,40 @@ export class GameComponent {
 
   blockWithCreatureCard(card: Card): void {
     this.connectionService.sendMessage(new IntendsToBlockWithIncomingMessage(card.id))
+
+    this.gameState.blockerSelected = card;
+  }
+
+  blockCreatureCard(card: Card): void {
+    if (this.gameState.blockerSelected == undefined) {
+      throw new Error();
+    }
+
+    this.connectionService.sendMessage(new BlockCreatureIncomingMessage(this.gameState.blockerSelected.id, card.id))
+
+    this.gameState.blockerSelected = undefined;
+  }
+
+  handleCardClick(card: Card): void {
+    if (this.gameState.blockerSelected) {
+      this.blockCreatureCard(card);
+
+      return;
+    }
+
+    if (this.isDeclaringAttackers()) {
+      this.attackWithCreatureCard(card);
+
+      return;
+    }
+
+    if (this.isDeclaringBlockers()) {
+      this.blockWithCreatureCard(card);
+
+      return;
+    }
+
+    this.activateAbilityOnCard(card.activatedAbilities[0]);
   }
 
   changeStopOnOpponentsTurn(step: string): void {

@@ -204,7 +204,8 @@ export class MessageHandlerService {
           .forEach(card => {
             card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
           })
-        this.gameState.game.getMyPlayer().battlefield
+        this.gameState.game.players
+          .flatMap(player => player.battlefield)
           .forEach(card => {
             card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
           })
@@ -316,6 +317,9 @@ export class MessageHandlerService {
         }
 
         attackingCard.attacking = true;
+        break;
+      case 'ResetBlockerOutgoingMessage':
+        this.gameState.blockerSelected = undefined;
         break;
       default:
         console.log("Unknown message!", messageObj);

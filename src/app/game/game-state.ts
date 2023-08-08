@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Game} from "../shared/game/domain/game";
 import {Stack} from "../shared/stack/domain/stack";
+import {Card} from "../shared/card/card";
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,8 @@ export class GameState {
   public staticAssetLocation: string;
 
   public activeStep: string;
+
+  public blockerSelected: Card | undefined;
 
   public gameMessage: string;
   public gameMessageType: string;

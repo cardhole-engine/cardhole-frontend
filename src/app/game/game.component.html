@@ -85,9 +85,10 @@
           <div *ngIf="gameState.game.players.length > 1">
             <div *ngFor="let card of gameState.game.getOpponent().battlefield" class="card"
                  [class.tapped-card]="card.tapped" style="display: inline-block;"
-                 (click)="activateAbilityOnCard(card.activatedAbilities[0])">
-              <div [textContent]="card.name" [class.text-warning]="card.highlighted"
-                   [class.text-danger]="card.attacking" class="card-head"></div>
+                 (click)="handleCardClick(card)">
+              <div [class.text-warning]="card.highlighted" class="card-head">
+                <span *ngIf="card.attacking" class="text-danger">(Atk)</span> {{card.name}}
+              </div>
               <div class="card-body p-2">
                 <img [src]="gameState.staticAssetLocation + '/' + card.set + '/' + card.setId + '.jpg'"
                      class="battlefield-card-image"/>
@@ -261,11 +262,10 @@
         <div class="col-11 g-0 battlefield-area">
           <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card"
                [class.tapped-card]="card.tapped" style="display: inline-block;"
-               (click)="isDeclaringAttackers() ? attackWithCreatureCard(card)
-                : isDeclaringBlockers() ? blockWithCreatureCard(card) :
-                activateAbilityOnCard(card.activatedAbilities[0]);">
-            <div [textContent]="card.name" [class.text-warning]="card.highlighted" [class.text-danger]="card.attacking"
-                 class="card-head"></div>
+               (click)="handleCardClick(card)">
+            <div [class.text-warning]="card.highlighted" class="card-head">
+              <span *ngIf="card.attacking" class="text-danger">(Atk)</span> {{card.name}}
+            </div>
             <div class="card-body p-2">
               <img [src]="gameState.staticAssetLocation + '/' + card.set + '/' + card.setId + '.jpg'"
                    class="battlefield-card-image"/>
