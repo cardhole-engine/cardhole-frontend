@@ -35,6 +35,8 @@ import {CardPutToStackOutgoingMessage} from "./networking/card-put-to-stack-outg
 import {StackEntry} from "./stack/domain/stack-entry";
 import {CardRemovedFromStackOutgoingMessage} from "./networking/card-removed-from-stack-outgoing-message";
 import {MarkCardIsAttackingOutgoingMessage} from "./networking/mark-card-is-attacking-outgoing-message";
+import {MarkCardIsBlockingOutgoingMessage} from "./networking/mark-card-is-blocking-outgoing-message";
+import * as LeaderLine from "leader-line-new";
 
 @Injectable({
   providedIn: 'root'
@@ -317,6 +319,17 @@ export class MessageHandlerService {
         }
 
         attackingCard.attacking = true;
+        break;
+      case 'MarkCardIsBlockingOutgoingMessage':
+        let markCardIsBlockingOutgoingMessage: MarkCardIsBlockingOutgoingMessage =
+          messageObj as MarkCardIsBlockingOutgoingMessage;
+
+        new LeaderLine(
+          // @ts-ignore
+          document.getElementById('card-' + markCardIsBlockingOutgoingMessage.blocker),
+          document.getElementById('card-' + markCardIsBlockingOutgoingMessage.blocked)
+        );
+
         break;
       case 'ResetBlockerOutgoingMessage':
         this.gameState.blockerSelected = undefined;
