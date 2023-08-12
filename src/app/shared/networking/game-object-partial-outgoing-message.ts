@@ -1,7 +1,6 @@
-import {Message} from "./message";
 import {Ability} from "../card/ability";
 
-export class CardEnterToBattlefieldOutgoingMessage extends Message {
+export class GameObjectPartialOutgoingMessage {
 
   id: string;
   name: string;
@@ -9,4 +8,6 @@ export class CardEnterToBattlefieldOutgoingMessage extends Message {
   activatedAbilities: Ability[];
   set: string;
   setId: number;
+  power: number;
+  toughness: number;
 }

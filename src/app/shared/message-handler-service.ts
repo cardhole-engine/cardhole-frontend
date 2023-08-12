@@ -14,7 +14,7 @@ import {
 } from "./networking/show-dual-question-game-message-outgoing-message";
 import {ShowSimpleGameMessageOutgoingMessage} from "./networking/show-simple-game-message-outgoing-message";
 import {HandSizeChangeOutgoingMessage} from "./networking/hand-size-change-outgoing-message";
-import {AddCardToHandOutgoingMessage} from "./networking/add-card-to-hand-outgoing-message";
+import {AddGameObjectToHandOutgoingMessage} from "./networking/add-game-object-to-hand-outgoing-message";
 import {Card} from "./card/card";
 import {RemoveCardFromHandOutgoingMessage} from "./networking/remove-card-from-hand-outgoing-message";
 import {StepChangeOutgoingMessage} from "./networking/step-change-outgoing-message";
@@ -24,19 +24,22 @@ import {
 import {
   RefreshCanBeCastAndActivatedListOutgoingMessage
 } from "./networking/refresh-can-be-cast-and-activated-list-outgoing-message";
-import {CardEnterToBattlefieldOutgoingMessage} from "./networking/card-enter-to-battlefield-outgoing-message";
+import {
+  GameObjectEnterToBattlefieldOutgoingMessage
+} from "./networking/game-object-enter-to-battlefield-outgoing-message";
 import {DeckSizeChangeOutgoingMessage} from "./networking/deck-size-change-outgoing-message";
 import {RefreshManaPoolOutgoingMessage} from "./networking/refresh-mana-pool-outgoing-message";
 import {RefreshStopsOutgoingMessage} from "./networking/refresh-stops-outgoing-message";
 import {CardTappedOnBattlefieldOutgoingMessage} from "./networking/card-tapped-on-battlefield-outgoing-message";
 import {LoginResultOutgoingMessage} from "./networking/login-result-outgoing-message";
 import {CardUntappedOnBattlefieldOutgoingMessage} from "./networking/card-untapped-on-battlefield-outgoing-message";
-import {CardPutToStackOutgoingMessage} from "./networking/card-put-to-stack-outgoing-message";
+import {GameObjectPutToStackOutgoingMessage} from "./networking/game-object-put-to-stack-outgoing-message";
 import {StackEntry} from "./stack/domain/stack-entry";
 import {CardRemovedFromStackOutgoingMessage} from "./networking/card-removed-from-stack-outgoing-message";
 import {MarkCardIsAttackingOutgoingMessage} from "./networking/mark-card-is-attacking-outgoing-message";
 import {MarkCardIsBlockingOutgoingMessage} from "./networking/mark-card-is-blocking-outgoing-message";
 import * as LeaderLine from "leader-line-new";
+import {CardTransformer} from "./card/card-transformer";
 
 @Injectable({
   providedIn: 'root'
@@ -46,7 +49,8 @@ export class MessageHandlerService {
   constructor(
     private router: Router,
     private gameState: GameState,
-    private lobbyState: LobbyState
+    private lobbyState: LobbyState,
+    private cardTransformer: CardTransformer
   ) {
   }
 
@@ -142,17 +146,12 @@ export class MessageHandlerService {
         this.gameState.gameMessage = showSimpleGameMessage.message;
         this.gameState.gameMessageType = 'MESSAGE';
         break;
-      case 'AddCardToHandOutgoingMessage':
-        let addCardToHandOutgoingMessage: AddCardToHandOutgoingMessage = messageObj as AddCardToHandOutgoingMessage;
+      case 'AddGameObjectToHandOutgoingMessage':
+        let addGameObjectToHandOutgoingMessage: AddGameObjectToHandOutgoingMessage =
+          messageObj as AddGameObjectToHandOutgoingMessage;
 
-        let card: Card = new Card();
-
-        card.id = addCardToHandOutgoingMessage.id;
-        card.name = addCardToHandOutgoingMessage.name;
-        card.set = addCardToHandOutgoingMessage.set;
-        card.setId = addCardToHandOutgoingMessage.setId;
-
-        this.gameState.game.getMyPlayer().hand.push(card);
+        this.gameState.game.getMyPlayer().hand.push(this.cardTransformer.transform(
+          addGameObjectToHandOutgoingMessage.gameObject));
         break;
       case 'RemoveCardFromHandOutgoingMessage':
         let removeCardFromHandOutgoingMessage: RemoveCardFromHandOutgoingMessage = messageObj as RemoveCardFromHandOutgoingMessage;
@@ -212,26 +211,18 @@ export class MessageHandlerService {
             card.highlighted = refreshCanBeCastAndActivatedListOutgoingMessage.canBeCastOrActivated.includes(card.id);
           })
         break;
-      case 'CardEnterToBattlefieldOutgoingMessage':
-        let cardEnterToBattlefieldOutgoingMessage: CardEnterToBattlefieldOutgoingMessage =
-          messageObj as CardEnterToBattlefieldOutgoingMessage;
+      case 'GameObjectEnterToBattlefieldOutgoingMessage':
+        let gameObjectEnterToBattlefieldOutgoingMessage: GameObjectEnterToBattlefieldOutgoingMessage =
+          messageObj as GameObjectEnterToBattlefieldOutgoingMessage;
 
         let owner: Player | undefined = this.gameState.game.players.find(player =>
-          player.id == cardEnterToBattlefieldOutgoingMessage.ownerId);
+          player.id == gameObjectEnterToBattlefieldOutgoingMessage.gameObject.ownerId);
 
         if (owner == undefined) {
           throw new Error("Unknown owner!");
         }
 
-        let enteringCard: Card = new Card();
-
-        enteringCard.id = cardEnterToBattlefieldOutgoingMessage.id;
-        enteringCard.name = cardEnterToBattlefieldOutgoingMessage.name;
-        enteringCard.activatedAbilities = cardEnterToBattlefieldOutgoingMessage.activatedAbilities;
-        enteringCard.set = cardEnterToBattlefieldOutgoingMessage.set;
-        enteringCard.setId = cardEnterToBattlefieldOutgoingMessage.setId;
-
-        owner.battlefield.push(enteringCard);
+        owner.battlefield.push(this.cardTransformer.transform(gameObjectEnterToBattlefieldOutgoingMessage.gameObject));
         break;
       case 'RefreshManaPoolOutgoingMessage':
         let refreshManaPoolOutgoingMessage: RefreshManaPoolOutgoingMessage =
@@ -285,16 +276,19 @@ export class MessageHandlerService {
 
         untappedCard.tapped = false;
         break;
-      case 'CardPutToStackOutgoingMessage':
-        let cardPutToStackOutgoingMessage: CardPutToStackOutgoingMessage = messageObj as CardPutToStackOutgoingMessage;
+      case 'GameObjectPutToStackOutgoingMessage':
+        let gameObjectPutToStackOutgoingMessage: GameObjectPutToStackOutgoingMessage =
+          messageObj as GameObjectPutToStackOutgoingMessage;
 
         let stackEntry: StackEntry = new StackEntry();
 
-        stackEntry.id = cardPutToStackOutgoingMessage.id;
-        stackEntry.name = cardPutToStackOutgoingMessage.name;
-        stackEntry.ownerId = cardPutToStackOutgoingMessage.ownerId;
-        stackEntry.set = cardPutToStackOutgoingMessage.set;
-        stackEntry.setId = cardPutToStackOutgoingMessage.setId;
+        stackEntry.id = gameObjectPutToStackOutgoingMessage.gameObject.id;
+        stackEntry.name = gameObjectPutToStackOutgoingMessage.gameObject.name;
+        stackEntry.ownerId = gameObjectPutToStackOutgoingMessage.gameObject.ownerId;
+        stackEntry.set = gameObjectPutToStackOutgoingMessage.gameObject.set;
+        stackEntry.setId = gameObjectPutToStackOutgoingMessage.gameObject.setId;
+        stackEntry.toughness = gameObjectPutToStackOutgoingMessage.gameObject.toughness;
+        stackEntry.power = gameObjectPutToStackOutgoingMessage.gameObject.power;
 
         this.gameState.stack.stackEntries.push(stackEntry);
         break;
