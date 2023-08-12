@@ -6,7 +6,23 @@
         style="height: 40vh; border-left: 3px solid dimgray; border-top: 3px solid dimgray; border-bottom: 3px solid dimgray;">
         <div style="height: 100%;">
           <div style="background: darkseagreen; height: 100%;">
-            Card title
+            <div *ngIf="focusedCard != undefined" class="card" style="height: 100%;">
+                <div class="card-head">
+                  <div style="margin-left: 6px;">
+                    {{focusedCard.name}}
+                  </div>
+                </div>
+                <div class="card-body p-2">
+                  <img [src]="gameState.staticAssetLocation + '/' + focusedCard.set + '/' + focusedCard.setId + '.jpg'"
+                       class="img-fluid"/>
+                  <p class="card-text" style="font-size: 8px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit,
+                    sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+                </div>
+                <div class="card-footer p-0" style="border-top: 0; background-color: white;">
+                  <div class="float-end" style="margin-right: 10px;" *ngIf="focusedCard.power > -1">{{focusedCard.power}}
+                    / {{focusedCard.toughness}}</div>
+                </div>
+            </div>
           </div>
         </div>
       </div>
@@ -90,7 +106,7 @@
           <div *ngIf="gameState.game.players.length > 1">
             <div *ngFor="let card of gameState.game.getOpponent().battlefield" class="card col-2" [id]="'card-'+card.id"
                  [class.tapped-card]="card.tapped" style="display: inline-block;"
-                 (click)="handleCardClick(card)">
+                 (click)="handleCardClick(card)" on-mouseover="setFocusedCard(card)">
               <div [class.text-warning]="card.highlighted" class="card-head">
                 <div style="margin-left: 6px;">
                   <span *ngIf="card.attacking" class="text-danger">(Atk)</span> {{card.name}}
@@ -274,7 +290,7 @@
         <div class="col-11 g-0 battlefield-area">
           <div *ngFor="let card of gameState.game.getMyPlayer().battlefield" class="card col-2" [id]="'card-'+card.id"
                [class.tapped-card]="card.tapped" style="display: inline-block;"
-               (click)="handleCardClick(card)">
+               (click)="handleCardClick(card)" on-mouseover="setFocusedCard(card)">
             <div [class.text-warning]="card.highlighted" class="card-head">
               <div style="margin-left: 6px;">
                 <span *ngIf="card.attacking" class="text-danger">(Atk)</span> {{card.name}}
@@ -298,7 +314,7 @@
         <!--My player HAND -->
         <div class="col">
           <div *ngFor="let card of gameState.game.getMyPlayer().hand" class="card col-2" style="display: inline-block;"
-               (click)="castCard(card)">
+               (click)="castCard(card)" on-mouseover="setFocusedCard(card)">
             <div [textContent]="card.name" [class.text-warning]="card.highlighted" class="card-head"></div>
             <div class="card-body p-2">
               <img [src]="gameState.staticAssetLocation + '/' + card.set + '/' + card.setId + '.jpg'"

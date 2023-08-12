@@ -18,6 +18,8 @@ import {BlockCreatureIncomingMessage} from "../shared/networking/block-creature-
 })
 export class GameComponent {
 
+  focusedCard: Card;
+
   constructor(
     public gameState: GameState,
     private connectionService: ConnectionService
@@ -97,5 +99,9 @@ export class GameComponent {
   changeStopOnMyTurn(step: string): void {
     this.connectionService.sendMessage(new ChangeStopIncomingMessage(step, true,
       !this.gameState.stopAtStepInOpponentTurn[step]));
+  }
+
+  setFocusedCard(card: Card): void {
+    this.focusedCard = card;
   }
 }
